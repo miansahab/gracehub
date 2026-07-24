@@ -28,6 +28,26 @@
 </helmet>
 <div style="height:100vh;display:flex;flex-direction:column;background:#f6f5f1;overflow:hidden">
 
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed;inset:0;z-index:100;background:#14201c;display:flex;align-items:center;justify-content:center;padding:20px;background-image:radial-gradient(circle at 20% 20%,#1c3029,#14201c 60%)">
+      <div style="width:400px;max-width:100%;background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.4);overflow:hidden;animation:gh-fade .2s ease">
+        <div style="padding:30px 32px 22px;text-align:center;border-bottom:1px solid #eeede7">
+          <div style="width:52px;height:52px;border-radius:13px;background:#1f6b5c;color:#fff;font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">G</div>
+          <div style="font-size:21px;font-weight:700">GRACE Hub</div>
+          <div style="font-size:13px;color:#6b7269;margin-top:3px">DPSCD Foundation · Unified Operations</div>
+        </div>
+        <div style="padding:26px 32px 30px">
+          <div style="font-size:13px;color:#6b7269;text-align:center;margin-bottom:18px;line-height:1.5">Sign in with your Foundation account. Access is managed through Microsoft Entra ID — no separate password.</div>
+          <button onClick="{{ signIn }}" style="width:100%;height:46px;border-radius:11px;background:#1f6b5c;color:#fff;font-size:14.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px" style-hover="background:#16564a">
+            <sc-if value="{{ notLoggingIn }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:center;gap:10px"><span style="width:18px;height:18px;background:#fff;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;color:#1f6b5c;font-size:12px;font-weight:800">⊞</span> Continue with Microsoft Entra ID</span></sc-if>
+            <sc-if value="{{ loggingIn }}" hint-placeholder-val="{{ false }}"><span>Signing you in…</span></sc-if>
+          </button>
+          <div style="font-size:11px;color:#9aa39d;text-align:center;margin-top:16px;line-height:1.5">SEC-01 · SSO only · encrypted in transit &amp; at rest<br>Deactivated accounts lose access within 15 minutes.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <header style="height:58px;flex:none;display:flex;align-items:center;gap:18px;padding:0 20px;background:#14201c;color:#f6f5f1;z-index:20">
     <div style="display:flex;align-items:center;gap:10px">
       <div style="width:30px;height:30px;border-radius:8px;background:#1f6b5c;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff">G</div>
@@ -35,7 +55,7 @@
       <div style="font-size:11px;color:#8fa39b;border-left:1px solid #33463f;padding-left:10px;margin-left:2px;line-height:1.15">DPSCD<br>Foundation</div>
     </div>
     <div style="flex:1;max-width:440px;position:relative">
-      <input value="{{ q }}" onInput="{{ onSearch }}" placeholder="Search donors, grants, documents…" style="width:100%;height:36px;border-radius:9px;border:1px solid #33463f;background:#1c2b26;color:#f6f5f1;padding:0 14px 0 34px;font-size:13.5px;outline:none"/>
+      <input value="{{ q }}" onInput="{{ onSearch }}" onKeyDown="{{ onSearchKey }}" placeholder="Search donors, grants, documents…  (Enter for all results)" style="width:100%;height:36px;border-radius:9px;border:1px solid #33463f;background:#1c2b26;color:#f6f5f1;padding:0 14px 0 34px;font-size:13.5px;outline:none"/>
       <span style="position:absolute;left:11px;top:9px;color:#8fa39b;font-size:15px">⌕</span>
       <sc-if value="{{ hasSearch }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;top:42px;left:0;right:0;background:#fff;border-radius:11px;box-shadow:0 14px 40px rgba(0,0,0,.22);padding:6px;z-index:40;animation:gh-fade .12s ease">
@@ -63,6 +83,7 @@
       <div style="display:flex;align-items:center;gap:9px;padding-left:6px">
         <div style="width:32px;height:32px;border-radius:50%;background:#1f6b5c;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">{{ userInitials }}</div>
         <div style="line-height:1.2"><div style="font-size:12.5px;font-weight:600">{{ userName }}</div><div style="font-size:11px;color:#8fa39b">{{ roleLabel }}</div></div>
+        <button onClick="{{ signOut }}" title="Sign out" style="width:32px;height:32px;border-radius:8px;background:#1c2b26;color:#8fa39b;font-size:14px;display:flex;align-items:center;justify-content:center;margin-left:2px" style-hover="color:#f6f5f1">⏻</button>
       </div>
     </div>
   </header>
@@ -70,6 +91,14 @@
   <div style="flex:1;display:flex;min-height:0">
     <nav style="width:216px;flex:none;background:#fff;border-right:1px solid #e4e3db;padding:12px 12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto">
       <sc-for list="{{ nav }}" as="m" hint-placeholder-count="10">
+        <button onClick="{{ m.onGo }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;text-align:left;font-size:13.5px;font-weight:{{ m.weight }};color:{{ m.color }};background:{{ m.bg }}" style-hover="background:#f0efe9">
+          <span style="width:22px;text-align:center;font-size:15px">{{ m.icon }}</span>
+          <span style="flex:1">{{ m.label }}</span>
+          <sc-if value="{{ m.badge }}" hint-placeholder-val="{{ false }}"><span style="min-width:18px;height:18px;border-radius:9px;background:{{ m.badgeBg }};color:{{ m.badgeColor }};font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px">{{ m.badge }}</span></sc-if>
+        </button>
+      </sc-for>
+      <div style="margin-top:14px;padding:0 8px 6px;font-size:10.5px;font-weight:700;color:#a9b0a9;text-transform:uppercase;letter-spacing:.5px">Platform</div>
+      <sc-for list="{{ adminNav }}" as="m" hint-placeholder-count="3">
         <button onClick="{{ m.onGo }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;text-align:left;font-size:13.5px;font-weight:{{ m.weight }};color:{{ m.color }};background:{{ m.bg }}" style-hover="background:#f0efe9">
           <span style="width:22px;text-align:center;font-size:15px">{{ m.icon }}</span>
           <span style="flex:1">{{ m.label }}</span>
@@ -671,6 +700,92 @@
           </div>
         </sc-if>
 
+        <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="font-size:12.5px;color:#6b7269;font-family:'IBM Plex Mono',monospace">SRC-02 · SRC-03 · permission-scoped</div>
+            <h1 style="margin:2px 0 4px;font-family:Newsreader,serif;font-weight:500;font-size:28px">Results for "{{ searchQuery }}"</h1>
+            <p style="margin:0 0 18px;font-size:13px;color:#6b7269">{{ searchCount }} matches across contacts, grants, documents and people you can access.</p>
+            <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;overflow:hidden">
+              <sc-for list="{{ searchPage }}" as="r" hint-placeholder-count="4">
+                <button onClick="{{ r.onGo }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:14px 18px;border-bottom:1px solid #f4f3ee;text-align:left;background:none" style-hover="background:#faf9f4">
+                  <span style="width:34px;height:34px;border-radius:9px;background:#e7f1ed;color:#1f6b5c;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none">{{ r.icon }}</span>
+                  <span style="flex:1;min-width:0"><span style="font-size:14px;font-weight:600;display:block">{{ r.title }}</span><span style="font-size:12px;color:#6b7269">{{ r.sub }}</span></span>
+                  <span style="font-size:10px;color:#9aa39d;font-family:'IBM Plex Mono',monospace">{{ r.kind }}</span>
+                  <span style="font-size:15px;color:#c9c8bf">→</span>
+                </button>
+              </sc-for>
+              <sc-if value="{{ searchEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:34px;text-align:center;color:#6b7269;font-size:13.5px">No matches for "{{ searchQuery }}".</div></sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isAudit }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">▦ Audit log</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">SEC-08 · immutable · 7-yr retention</span></div>
+            <h1 style="margin:0 0 14px;font-family:Newsreader,serif;font-weight:500;font-size:29px">Audit trail</h1>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+              <sc-for list="{{ auditTabs }}" as="t" hint-placeholder-count="8"><button onClick="{{ t.onGo }}" style="height:30px;padding:0 12px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}</button></sc-for>
+            </div>
+            <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:1.2fr .8fr 2fr 1fr;padding:11px 18px;font-size:11px;font-weight:700;color:#8a908a;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #f1f0ea"><div>Actor</div><div>Action</div><div>Record</div><div>When</div></div>
+              <sc-for list="{{ auditRows }}" as="a" hint-placeholder-count="8">
+                <div style="display:grid;grid-template-columns:1.2fr .8fr 2fr 1fr;align-items:center;padding:12px 18px;border-bottom:1px solid #f4f3ee">
+                  <div style="font-size:13px;font-weight:600">{{ a.actor }}</div>
+                  <div><span style="font-size:11px;font-weight:700;color:{{ a.color }};background:{{ a.bg }};border-radius:5px;padding:3px 8px;font-family:'IBM Plex Mono',monospace">{{ a.action }}</span></div>
+                  <div style="font-size:12.5px;color:#4a524b">{{ a.target }}</div>
+                  <div style="font-size:12px;color:#9aa39d">{{ a.time }}</div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ auditEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:30px;text-align:center;color:#6b7269;font-size:13px">No entries for this filter.</div></sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isIntegrations }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">⇄ Integrations</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">INT-01 … INT-03 · queued &amp; retryable</span></div>
+            <h1 style="margin:0 0 16px;font-family:Newsreader,serif;font-weight:500;font-size:29px">Integration sync log</h1>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ integrations }}" as="i" hint-placeholder-count="4">
+                <div style="background:#fff;border:1px solid #e4e3db;border-radius:13px;padding:15px 18px;display:flex;align-items:center;gap:15px">
+                  <div style="width:40px;height:40px;border-radius:10px;background:{{ i.statusBg }};color:{{ i.statusColor }};display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex:none">{{ i.mark }}</div>
+                  <div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:700">{{ i.name }}</div><div style="font-size:12px;color:#6b7269">{{ i.role }}</div></div>
+                  <div style="text-align:right"><div style="font-size:11.5px;font-weight:700;color:{{ i.statusColor }}">{{ i.statusLabel }}</div><div style="font-size:11px;color:#9aa39d;font-family:'IBM Plex Mono',monospace">{{ i.last }} · {{ i.records }}</div></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:16px;background:#fff;border:1px solid #e4e3db;border-radius:13px;padding:16px 18px;font-size:12.5px;color:#6b7269;line-height:1.55">Each data domain has one designated source of truth — QuickBooks owns the ledger, GRACE Hub owns donors &amp; grants. Failed syncs retry automatically and alert an admin; credentials are held in a secrets manager. Bill.com approval state reconciles with the workflow engine to prevent dual approvals.</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isAiAdmin }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#8a3a63;background:#f3e9ee;border-radius:6px;padding:3px 9px">✦ AI settings</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">AIS-01 · AIS-02 · central service layer</span></div>
+            <h1 style="margin:0 0 16px;font-family:Newsreader,serif;font-weight:500;font-size:29px">AI service configuration</h1>
+            <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:16px">
+              <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:19px">
+                <h2 style="margin:0 0 4px;font-size:15.5px;font-weight:700">Model provider</h2>
+                <p style="margin:0 0 14px;font-size:12.5px;color:#6b7269">Swap provider centrally — no module changes required.</p>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <sc-for list="{{ aiProviders }}" as="p" hint-placeholder-count="3"><button onClick="{{ p.onGo }}" style="height:40px;border-radius:10px;font-size:13.5px;font-weight:600;border:1px solid {{ p.border }};background:{{ p.bg }};color:{{ p.color }};text-align:left;padding:0 14px" style-hover="background:#f6f5f1">{{ p.label }}</button></sc-for>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:19px">
+                <h2 style="margin:0 0 14px;font-size:15.5px;font-weight:700">Governance</h2>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <sc-for list="{{ aiToggles }}" as="t" hint-placeholder-count="3">
+                    <button onClick="{{ t.onToggle }}" style="display:flex;align-items:center;gap:13px;padding:12px 6px;border-bottom:1px solid #f1f0ea;text-align:left;background:none;width:100%">
+                      <div style="flex:1"><div style="font-size:13.5px;font-weight:600">{{ t.label }}</div><div style="font-size:12px;color:#9aa39d">{{ t.desc }}</div></div>
+                      <span style="width:38px;height:22px;border-radius:12px;background:{{ t.knobBg }};position:relative;flex:none;transition:background .15s"><span style="position:absolute;top:2px;left:{{ t.knobX }};width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s"></span></span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="margin-top:14px;font-size:12px;color:#6b7269;line-height:1.5">Foundation data is never used to train third-party models, and everything the AI produces is a draft that requires human review before it is sent.</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
         <sc-if value="{{ isScaffold }}" hint-placeholder-val="{{ false }}">
           <div style="animation:gh-fade .18s ease">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">{{ scaffold.icon }} {{ scaffold.name }}</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">{{ scaffold.reqs }}</span></div>
@@ -977,8 +1092,27 @@
 class Component extends DCLogic {
   state = {
     role: 'exec',
+    authed: false, loggingIn: false,
     moduleId: 'dashboard',
-    q: '',
+    q: '', searchSubmitted: false,
+    ai:{}, aiSettings:{ provider:'Anthropic Claude', humanReview:true, noTraining:true, autolog:true },
+    integrations:[
+      { id:'i1', name:'Microsoft Entra ID', role:'SSO · user provisioning', status:'ok', last:'8:00 AM', records:'126 users' },
+      { id:'i2', name:'Microsoft 365', role:'Calendar · email · SharePoint', status:'ok', last:'8:02 AM', records:'sync live' },
+      { id:'i3', name:'QuickBooks Online', role:'General ledger · budgets', status:'ok', last:'8:00 AM', records:'340 records' },
+      { id:'i4', name:'Bill.com', role:'Vendor bills · payments', status:'error', last:'retry 2/3', records:'alerting' },
+    ],
+    audit:[
+      { id:'au1', actor:'A. Rivers', action:'update', target:'Contact · Marcus & Denise Hall', time:'12 min ago', kind:'update' },
+      { id:'au2', actor:'Dana Whitmore', action:'approve', target:'Invoice #4021', time:'1 hour ago', kind:'approve' },
+      { id:'au3', actor:'System', action:'sync', target:'QuickBooks · 340 records', time:'Today 8:00 AM', kind:'sync' },
+      { id:'au4', actor:'L. Nguyen', action:'create', target:'Grant · College Readiness', time:'Yesterday', kind:'create' },
+      { id:'au5', actor:'T. Okafor', action:'export', target:'Report · Q1 P&L (PDF)', time:'Yesterday', kind:'export' },
+      { id:'au6', actor:'Admin', action:'perm-change', target:'Role · M. Santos → Events scope', time:'2 days ago', kind:'perm' },
+      { id:'au7', actor:'A. Rivers', action:'login', target:'SSO via Entra ID', time:'2 days ago', kind:'login' },
+      { id:'au8', actor:'K. Obi', action:'delete', target:'Program participant · (redacted)', time:'3 days ago', kind:'delete' },
+    ],
+    auditFilter:'all',
     notifOpen: false,
     toast: null,
     giftModal: false,
@@ -1220,6 +1354,16 @@ class Component extends DCLogic {
       onYes:()=>{ this.setState(s=>({ members:s.members.filter(x=>x.id!==id), confirm:null })); this.toast('Board member removed', '🗑', '#b3402f'); } } });
   }
   closeConfirm(){ this.setState({ confirm:null }); }
+  signIn(){
+    this.setState({ loggingIn:true });
+    clearTimeout(this._auth);
+    this._auth = setTimeout(()=>this.setState({ authed:true, loggingIn:false }), 900);
+  }
+  signOut(){ this.setState({ authed:false, moduleId:'dashboard' }); }
+  submitSearch(e){ if(e.key==='Enter' && this.state.q.trim()){ this.setState({ moduleId:'search', searchSubmitted:true }); } }
+  setAuditFilter(k){ this.setState({ auditFilter:k }); }
+  toggleAi(key){ this.setState(s=>({ aiSettings:{...s.aiSettings,[key]:!s.aiSettings[key]} })); this.toast('AI setting updated','✦','#8a3a63'); }
+  setAiProvider(v){ this.setState(s=>({ aiSettings:{...s.aiSettings,provider:v} })); }
 
   setGrantStage(id, stage){
     if(!id) return;
@@ -1526,6 +1670,12 @@ class Component extends DCLogic {
       return { icon, label, weight:active?700:500, color:active?'#14201c':'#4a524b', bg:active?'#e7f1ed':'transparent',
         badge, badgeBg:'#1f6b5c', badgeColor:'#fff', onGo:()=>this.go(id) };
     });
+    const adminDefs = [['audit','▦','Audit log'],['integrations','⇄','Integrations'],['aiadmin','✦','AI settings']];
+    const adminNav = adminDefs.map(([id,icon,label])=>{ const active=s.moduleId===id;
+      const badge = id==='integrations' ? (s.integrations.filter(i=>i.status==='error').length||'') : '';
+      return { icon, label, weight:active?700:500, color:active?'#14201c':'#4a524b', bg:active?'#e7f1ed':'transparent',
+        badge, badgeBg:'#c9503c', badgeColor:'#fff', onGo:()=>this.go(id) };
+    });
 
     // search
     const q = s.q.trim().toLowerCase();
@@ -1720,12 +1870,52 @@ class Component extends DCLogic {
     const hrTabs = [['directory','Employee directory'],['learning','Learning Center'],['roles','Roles & access']]
       .map(([k,label])=>({ label, bg:s.hrTab===k?'#1f6b5c':'#fff', color:s.hrTab===k?'#fff':'#4a524b', border:s.hrTab===k?'#1f6b5c':'#e4e3db', onGo:()=>this.setState({hrTab:k}) }));
 
+    // Audit log
+    const auditKindStyle = { create:['#1f6b5c','#e7f1ed'], update:['#356a8a','#e6eef4'], delete:['#b3402f','#f7e5e1'], approve:['#2f7d54','#e7f1ed'], export:['#a5751c','#f6edda'], sync:['#6b7269','#eeede7'], perm:['#8a3a63','#f3e9ee'], login:['#356a8a','#e6eef4'] };
+    const af = s.auditFilter;
+    let auditSrc = s.audit.filter(a=> af==='all' || a.kind===af );
+    const auditRows = auditSrc.map(a=>{ const [c,bg]=auditKindStyle[a.kind]||['#6b7269','#eeede7'];
+      return { actor:a.actor, action:a.action.toUpperCase(), target:a.target, time:a.time, color:c, bg };
+    });
+    const auditTabs = [['all','All'],['create','Create'],['update','Update'],['delete','Delete'],['approve','Approve'],['export','Export'],['perm','Permissions'],['login','Login']]
+      .map(([k,label])=>({ label, bg:af===k?'#1f6b5c':'#fff', color:af===k?'#fff':'#4a524b', border:af===k?'#1f6b5c':'#e4e3db', onGo:()=>this.setAuditFilter(k) }));
+
+    // Integrations
+    const intStatus = { ok:['Healthy','#2f7d54','#e7f1ed','✓'], error:['Error · alerting','#b3402f','#f7e5e1','✕'] };
+    const integrations = s.integrations.map(i=>{ const [lbl,c,bg,mk]=intStatus[i.status];
+      return { name:i.name, role:i.role, last:i.last, records:i.records, statusLabel:lbl, statusColor:c, statusBg:bg, mark:mk };
+    });
+
+    // AI admin
+    const aiToggles = [
+      { key:'humanReview', label:'Require human review before send', desc:'All AI output is a draft until a person approves it.', on:s.aiSettings.humanReview },
+      { key:'noTraining', label:'Never train external models on our data', desc:'Foundation data is excluded from third-party training.', on:s.aiSettings.noTraining },
+      { key:'autolog', label:'Log every AI action to the audit trail', desc:'Attribution recorded for each generation.', on:s.aiSettings.autolog },
+    ].map(t=>({ ...t, knobBg:t.on?'#1f6b5c':'#cfcec5', knobX:t.on?'18px':'2px', onToggle:()=>this.toggleAi(t.key) }));
+    const aiProviders = ['Anthropic Claude','OpenAI GPT','Azure OpenAI'].map(p=>({ label:p, bg:s.aiSettings.provider===p?'#1f6b5c':'#fff', color:s.aiSettings.provider===p?'#fff':'#4a524b', border:s.aiSettings.provider===p?'#1f6b5c':'#e4e3db', onGo:()=>this.setAiProvider(p) }));
+
+    // Search results (full page)
+    const sq = s.q.trim().toLowerCase();
+    let searchPage = [];
+    if(sq){
+      s.contacts.forEach(c=>{ if(c.name.toLowerCase().includes(sq)||c.type.toLowerCase().includes(sq)) searchPage.push({icon:'♥',title:c.name,sub:c.type+' · '+this.fmt(c.lifetime)+' lifetime',kind:'CONTACT',onGo:()=>this.setState({moduleId:'advancement',selectedId:c.id})}); });
+      s.grants.forEach(g=>{ if(g.title.toLowerCase().includes(sq)||g.funder.toLowerCase().includes(sq)) searchPage.push({icon:'◈',title:g.title,sub:g.funder+' · '+this.fmt(g.amount),kind:'GRANT',onGo:()=>this.setState({moduleId:'grants',selGrant:g.id})}); });
+      s.knowledgeDocs.forEach(d=>{ if(d.title.toLowerCase().includes(sq)) searchPage.push({icon:'▤',title:d.title,sub:d.tag+' · '+d.ver,kind:'DOC',onGo:()=>this.go('operations')}); });
+      s.employees.forEach(e=>{ if(e.name.toLowerCase().includes(sq)||e.role.toLowerCase().includes(sq)) searchPage.push({icon:'☺',title:e.name,sub:e.role+' · '+e.dept,kind:'PERSON',onGo:()=>this.go('hr')}); });
+    }
+
     const sc = this.scaffoldData();
 
     return {
+      authed:s.authed, showLogin:!s.authed, loggingIn:s.loggingIn, notLoggingIn:!s.loggingIn, signIn:()=>this.signIn(), signOut:()=>this.signOut(),
+      onSearchKey:e=>this.submitSearch(e), adminNav,
+      isAudit:s.moduleId==='audit', auditRows, auditTabs, auditEmpty:auditRows.length===0,
+      isIntegrations:s.moduleId==='integrations', integrations,
+      isAiAdmin:s.moduleId==='aiadmin', aiToggles, aiProviders, aiProvider:s.aiSettings.provider,
+      isSearch:s.moduleId==='search', searchPage, searchQuery:s.q, searchCount:String(searchPage.length), searchEmpty:searchPage.length===0,
       role:s.role, roleLabel:u.label, userName:u.name, userInitials:u.initials,
       moduleId:s.moduleId, isDashboard:s.moduleId==='dashboard', isAdvancement:s.moduleId==='advancement',
-      isScaffold: !['dashboard','advancement','grants','finance','events','communications','programs','operations','board','hr'].includes(s.moduleId), scaffold:sc,
+      isScaffold: !['dashboard','advancement','grants','finance','events','communications','programs','operations','board','hr','audit','integrations','aiadmin','search'].includes(s.moduleId), scaffold:sc,
       isPrograms:s.moduleId==='programs', programList, roster, impactStats, present, attRate, attRateW:attRate+'%',
       isOperations:s.moduleId==='operations', filteredTasks, taskTabs, workflows, knowledgeDocs,
       isBoard:s.moduleId==='board', packetSections, packetStep:s.packetStep,
