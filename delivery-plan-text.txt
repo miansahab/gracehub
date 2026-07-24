@@ -1,0 +1,398 @@
+GRACE Hub
+Delivery Plan - Solo Developer Delivery
+6-month delivery timeline - 26 weeks
+July 2026
+Summary Delivery Timeline
+The table below is the single-page summary of this delivery plan: every phase, its headline scope, and its duration under this staffing scenario. Full functional detail for every item listed here follows in the sections after it.
+Phase
+| Scope Summary
+| Duration
+Phase 1: Core Infrastructure
+| Entra SSO & M365 integration; user/role management; central dashboard; global search; document repository; grants (core); donor CRM (core); QuickBooks & Bill.com integrations; communications (core); workflow engine; basic reporting; audit logs
+| 12 weeks
+Phase 2: Operational Modules
+| Events; board packet wizard; programs; advanced finance workflows; advanced grant management; donor moves management; cross-department collaboration; AI-assisted content creation; mobile optimization; Knowledge Center
+| 7 weeks
+Phase 3: Intelligence & Automation
+| AI assistant; AI search; predictive dashboards; automated reporting; workflow intelligence; executive insights; advanced analytics; benchmarking
+| 7 weeks
+Phase 4: Enterprise Expansion
+| White-label, multi-org tenancy, subscriptions, client admin, partner portals, additional ERP/CRM integrations, public APIs, module marketplace
+| Future
+Total delivery time (Phases 1–3):   26 weeks
+1. Introduction
+1.1 Purpose
+GRACE Hub is a custom, unified operations platform for a mid-sized nonprofit organization. It unifies departments on one system, automates workflows, centralizes organizational knowledge, and gives leadership real-time operational visibility. This document specifies the full functional and non-functional requirement set alongside a delivery plan for three-person team delivery.
+1.2 Scope
+In scope: platform infrastructure (identity, permissions, workflow, notifications, search, AI, audit, storage); the nine departmental modules; integrations with Azure Entra ID, Microsoft 365, QuickBooks, and Bill.com; and organization-wide AI features and universal search.
+Out of scope (Phase 4, future): white-label theming, multi-organization tenancy, subscription management, client administration, partner portals, public APIs, and a module marketplace. These are documented for architectural awareness but are not deliverables of this engagement.
+1.3 Delivery Model for This Scenario
+Three developers work in parallel - two full-stack engineers and one QA specialist - splitting the same workload to compress delivery into a quarter of the calendar time. A short shared foundation sprint precedes parallel module work; QA runs continuously alongside development rather than as a final phase.
+Note: The details for the items mentioned below are heavily inclined to change. Depending on client specific requirements, they will be altered. Right now, the processes expected of a suit of this scale are inclued.
+2. Architecture Overview
+2.1 Logical Architecture
+The platform follows a modular, service-oriented architecture: a presentation layer (responsive, mobile-first web application); an application layer (one independently deployable module per department); shared platform services (auth, workflow, notifications, search, documents, AI, audit) consumed by every module rather than duplicated; a data layer (relational system of record, object storage, search index); and an integration layer of queued, retryable connectors.
+2.2 Technology Stack
+Layer
+| Selected Technology
+Frontend
+| React 18 + TypeScript on Next.js; Tailwind CSS; Fluent UI React
+Backend
+| .NET 8 (C#) / ASP.NET Core, modular monolith - one module per department
+Database
+| PostgreSQL (Azure Database for PostgreSQL) + Entity Framework Core, with row-level security for record- and tenant-level isolation
+Search & AI grounding
+| Azure AI Search
+Workflow engine
+| Elsa Workflows (.NET-native), visual no-code designer for approval routing and escalations
+Jobs & notifications
+| Azure Service Bus; Azure SignalR Service; Azure Communication Services or SendGrid
+AI orchestration
+| Microsoft Semantic Kernel, calling Azure OpenAI (swappable provider)
+Identity
+| Azure Entra ID (mandated), via MSAL.NET
+Hosting
+| Docker on Azure Container Apps / AKS, environment-separated (dev/staging/prod)
+3. Identity, Access & Security Requirements
+ID
+| Requirement
+SEC-01
+| The system must authenticate users exclusively via Azure Entra ID single sign-on (OIDC/SAML). No local passwords.
+SEC-02
+| User provisioning and deactivation should sync from Entra ID (SCIM or scheduled directory sync); deactivated users must lose access within 15 minutes.
+SEC-03
+| The system must implement role-based access control with multi-level permissions: platform roles (admin, staff, board, read-only), department scopes, and record-level restrictions.
+SEC-04
+| Permission checks must be enforced server-side on every API call; UI hiding alone is not sufficient.
+SEC-05
+| Administrators must be able to manage users, roles, and department scopes through an admin UI without developer involvement.
+SEC-06
+| The system must write an immutable audit log for all create, update, delete, permission-change, export, and login events.
+SEC-07
+| Audit logs must be searchable by administrators and retained for a minimum of seven years.
+SEC-08
+| All data must be encrypted in transit (TLS 1.2+) and at rest.
+SEC-09
+| The system must support field-level sensitivity flags (e.g., donor wealth data, HR records) that restrict visibility to authorized roles.
+SEC-10
+| Backups must run at least daily with a documented disaster recovery plan; targets: RPO ≤ 24 hours, RTO ≤ 8 hours.
+4. Shared Platform Services
+Implemented once and consumed by every departmental module: workflow engine (WFL), notification engine (NTF), document management (DOC), global search (SRC), the AI service layer (AIS), and the activity feed/calendar (PLT).
+ID
+| Requirement
+WFL-01
+| The system must provide a configurable workflow engine supporting sequential/parallel approval routing, conditional branching, escalations on timeout, and status tracking.
+WFL-02
+| Workflows must be definable by administrators through configuration, not code, for common patterns (approvals, review chains, task handoffs).
+WFL-03
+| Every workflow instance must show its current step, assignee, history, and elapsed time in the assignee&apos;s Task Center and the executive Pending Approvals view.
+NTF-01
+| Notifications must be delivered in-app and by email, with per-user preferences and digest options.
+NTF-02
+| Notifications must be triggered by workflow events, deadlines, assignments, and mentions.
+NTF-03
+| A Notification Center must aggregate all notifications with read/unread state and deep links to source records.
+DOC-01
+| The system must provide a central document repository with folders, tags, versioning, and inherited permissions.
+DOC-02
+| Documents must be attachable to any record type and discoverable through global search.
+DOC-03
+| The repository must integrate with Microsoft 365 for viewing/editing Office documents where feasible.
+SRC-01
+| Universal search must cover donors, grants, events, communications, programs, vendors, board documents, templates, policies, financial reports, meeting notes, and contacts.
+SRC-02
+| Search results must respect record-level permissions and return results in under 2 seconds for typical queries.
+SRC-03
+| Search must support filters by record type, department, date range, and owner.
+AIS-01
+| AI features must be delivered through a central AI service layer so models, prompts, and providers can be changed without modifying modules.
+AIS-02
+| Organization data must not be used to train third-party models; the AI provider&apos;s data-handling terms must be documented and approved.
+AIS-03
+| All AI-generated content must be presented as drafts requiring human review before send/submit; AI actions must be attributable in the audit log.
+AIS-04
+| The AI knowledge assistant must ground responses in the organization&apos;s knowledge library and cite source documents.
+PLT-01
+| A cross-module activity feed must show recent record activity scoped to the user&apos;s permissions.
+PLT-02
+| A shared organizational calendar must aggregate events, grant deadlines, board meetings, and program dates, with department filters.
+5. Core Data Model
+Twelve shared entities form the system of record, referenced across multiple modules rather than owned by any single one.
+Entity
+| Description & Key Relationships
+Contact
+| Person or organization; household grouping, relationship mapping, notes, attachments, communication history. Shared by Advancement, Communications, Events, and Programs.
+Gift / Pledge
+| Financial contribution linked to a Contact and optionally a Campaign, Event, or Grant. One-time, recurring, pledge, sponsorship, tribute, matching, grant revenue.
+Campaign
+| Fundraising campaign aggregating gifts, communications, and attribution.
+Prospect Plan
+| Moves-management record on a Contact: stage, proposal tracking, tasks, assigned officer.
+Funder / Grant
+| Funder profile plus grant records across the lifecycle, with amount, dates, restrictions, payment schedule, agreements, milestones, and reporting deadlines.
+Event
+| Event with venue, dates, budget, staff assignments, registrations/tickets, check-in, sponsors, vendors, and financials.
+Program
+| Program/cohort/initiative with participants, volunteers, and impact metrics.
+Financial Record
+| Purchase orders, invoices, payments, and budget lines synchronized with QuickBooks and Bill.com.
+Task / Project
+| Assignable task with due date, project grouping, and workflow linkage; surfaces in Task Center.
+Board Record
+| Board meetings, agendas, packets, minutes, governance documents, members, and committees.
+Knowledge Asset
+| Policies, SOPs, templates, boilerplate text, forms, and training content with tags and permissions.
+Communication
+| Logged email, call, meeting, or campaign touch tied to Contacts and Campaigns, with engagement metrics.
+ID
+| Cross-Cutting Requirement
+DAT-01
+| Every entity must carry created/modified metadata, owner, department, and permission scope.
+DAT-02
+| Impact metrics (students, families, scholars, community members served) must be recordable against Grants, Programs, and Events and roll up to organization-level dashboards.
+DAT-03
+| The system must support data import from existing spreadsheets and legacy systems, with deduplication on Contacts during migration.
+6. Functional Requirements by Module
+Executive & Board
+ID
+| Requirement
+EXE-01
+| Executive dashboard must display organizational KPIs, department scorecards, financial snapshot, grant snapshot, fundraising dashboard, event dashboard, community impact dashboard, pending approvals, and the organizational calendar.
+EXE-02
+| Reporting suite must generate board, executive, KPI, department, impact, budget, grant, and fundraising reports, exportable to PDF and Excel, with scheduled delivery.
+EXE-03
+| Board packet builder must assemble agendas, reports, and documents into a paginated packet (PDF) with a wizard-driven flow; packets, minutes, and governance documents stored in a permissioned board library.
+EXE-04
+| Board member directory and committee management must track membership, terms, and committee assignments.
+Advancement (Donor CRM)
+ID
+| Requirement
+ADV-01
+| Contact management must support all contact types with household management, relationship mapping, contact history, notes, and attachments.
+ADV-02
+| Giving must record all gift types with receipts/acknowledgment tracking; recurring gifts and pledge schedules must generate expected-payment records and reminders.
+ADV-03
+| Prospect management must implement moves-management stages with proposal tracking, stewardship actions, and renewal reminders.
+ADV-04
+| Communications log must capture email history, call history, meeting notes, follow-up tasks, and reminders on the contact timeline.
+ADV-05
+| Analytics must compute donor retention, LYBUNT, SYBUNT, average gift, lifetime giving, and pipeline value, filterable by year, campaign, and segment.
+Grants
+ID
+| Requirement
+GRT-01
+| Pipeline must track leads and opportunities against a funder database, with deadline tracking and automated reminders.
+GRT-02
+| Proposal development must support status, collaborators, tasks, budget attachments, and reuse from a narrative/boilerplate library.
+GRT-03
+| Awards must capture amount, dates, restrictions, payment schedule, and executed agreements.
+GRT-04
+| Active grant management must track milestones, reporting deadlines, communications, and spenddown against budget with variance alerts.
+GRT-05
+| AI assistance must draft proposals, reports, and letters grounded in the knowledge library and prior applications.
+GRT-06
+| Impact tracking must record students, families, scholars, and community members served, plus outcomes and success metrics per grant.
+Finance
+ID
+| Requirement
+FIN-01
+| Financial dashboard must display cash on hand, revenue, expenses, AP, AR, net assets, and budget vs. actual, sourced from QuickBooks sync.
+FIN-02
+| Purchasing must support purchase orders, invoice upload (OCR-assisted where feasible), configurable approval routing, payment scheduling, three-way match, vendor payments via Bill.com, and exception handling queues.
+FIN-03
+| Financial reports must include P&L, balance sheet, budget reports, department expenses, grant expenses, and revenue by source.
+FIN-04
+| Expenses must be attributable to departments, grants, and events to support restricted-fund and grant spenddown reporting.
+Communications
+ID
+| Requirement
+COM-01
+| Email campaigns must support templates, audience segmentation, and distribution lists built from CRM queries.
+COM-02
+| Engagement tracking must capture open and click rates and write them back to contact timelines and campaign attribution.
+COM-03
+| Event invitations must link campaigns to Events and track responses.
+COM-04
+| AI assistance must draft emails and newsletters and suggest campaigns.
+Events
+ID
+| Requirement
+EVT-01
+| Planning must manage events, venues, dates, budgets, and staff assignments.
+EVT-02
+| Registration must support ticket sales, registration forms, check-in (including mobile check-in), and attendance capture.
+EVT-03
+| Sponsor management must track packages, commitments, and payments; vendor management must track contracts and payments.
+EVT-04
+| Event reporting must show revenue, expenses, attendance, ROI, and year-over-year historical comparison.
+Programs
+ID
+| Requirement
+PRG-01
+| Program management must support programs, cohorts, initiatives, community events, and volunteers.
+PRG-02
+| Participant tracking must cover registration, attendance, outcomes, and impact metrics.
+PRG-03
+| Reporting must present program KPIs, attendance, and community impact, rolling up to executive dashboards.
+Operations
+ID
+| Requirement
+OPS-01
+| Task management must support tasks, projects, assignments, due dates, and notifications, aggregated in a Task Center.
+OPS-02
+| Workflow automation must provide approval routing, status tracking, escalations, and smart notifications via the shared workflow engine.
+OPS-03
+| Knowledge Center must house policies, SOPs, templates, HR documents, forms, and a resource library with tagging, versioning, and permissions.
+HR / Administration
+ID
+| Requirement
+HRA-01
+| Employee directory must sync from Entra ID and track roles, permissions, and training records.
+HRA-02
+| Learning Center must host training videos, help articles, FAQs, and platform documentation, searchable and role-filtered.
+7. Integration Requirements
+System
+| Direction & Data Notes
+Azure Entra ID
+| Inbound: authentication (SSO), user provisioning, group-to-role mapping. OIDC preferred; deactivation propagates within 15 minutes.
+Microsoft 365
+| Bi-directional: calendar events, email send/log, document viewing/editing (SharePoint/OneDrive), meeting artifacts. Via Graph API, respecting M365 permissions.
+QuickBooks
+| Bi-directional: chart of accounts, transactions, budgets in; invoices/bills and class/department coding out. Scheduled sync hourly; reconciliation report for sync errors.
+Bill.com
+| Bi-directional: vendors, bills, approval status, payment status. Approval state must reconcile with the platform&apos;s own workflow to avoid dual approval conflicts.
+ID
+| Requirement
+INT-01
+| All integrations must be queued and retryable, with an admin-visible sync log, error queue, and alerting on repeated failures.
+INT-02
+| A single source of truth must be designated per data domain (e.g., QuickBooks for the general ledger, GRACE Hub for donors/grants).
+INT-03
+| Integration credentials must be stored in a secrets manager, never in code or configuration files.
+8. Non-Functional Requirements
+Category
+| Requirement
+Performance
+| Page loads ≤ 3s on standard broadband; dashboards ≤ 5s; search ≤ 2s; imports/reports may run asynchronously with progress indication.
+Availability
+| 99.5% uptime target excluding scheduled maintenance; maintenance windows communicated in advance.
+Scalability
+| Support 100+ concurrent users and 10 years of transactional history without degradation; architecture must scale to multi-organization use (Phase 4).
+Accessibility
+| WCAG 2.1 AA for all end-user interfaces.
+Browser support
+| Current versions of Edge, Chrome, Safari, and Firefox; iOS and Android mobile browsers.
+Data retention
+| Audit logs 7 years; soft-delete with 90-day recovery for user-deleted records.
+Localization
+| US English at launch; currency in USD; date/time in ET with user-level preference.
+9. Reporting & Analytics Framework
+ID
+| Requirement
+RPT-01
+| A shared reporting service must power all module reports with consistent filters and export to PDF and Excel.
+RPT-02
+| Scheduled reports must be deliverable by email to defined recipients.
+RPT-03
+| Dashboards must refresh from live data or near-real-time caches (≤ 15 minutes stale).
+RPT-04
+| Phase 3 must add predictive dashboards, automated report generation, workflow intelligence, executive insights, advanced analytics, and organization benchmarking.
+10. Detailed Delivery Timeline
+10.1 Team Composition & Delivery Model
+Three developers work in parallel - two full-stack engineers and one QA specialist - splitting the same workload to compress delivery into a quarter of the calendar time. A short shared foundation sprint precedes parallel module work; QA runs continuously alongside development rather than as a final phase.
+Phase 1 - Core Infrastructure   6 weeks
+Deliverable
+| Effort
+Entra SSO & M365 integration
+| 4 days
+User/role management
+| 2 days
+Central dashboard
+| 2 days
+Global search
+| 3 days
+Document repository
+| 3 days
+Grants (core)
+| 3 days
+Donor CRM (core)
+| 3 days
+QuickBooks & Bill.com integrations
+| 4 days
+Communications (core)
+| 1 day
+Workflow engine
+| 2 days
+Basic reporting
+| 1 day
+Audit logs
+| 2 days
+Phase total
+| 30 days
+Phase 2 - Operational Modules   4 weeks
+Deliverable
+| Effort
+Events
+| 3 days
+Board packet wizard
+| 2 days
+Programs
+| 2 days
+Advanced finance workflows
+| 2 days
+Advanced grant management
+| 2 days
+Donor moves management
+| 2 days
+Cross-department collaboration
+| 2 days
+AI-assisted content creation
+| 2 days
+Mobile optimization
+| 1 day
+Knowledge Center
+| 2 days
+Phase total
+| 20 days
+Phase 3 - Intelligence & Automation   3 weeks
+Deliverable
+| Effort
+AI assistant
+| 3 days
+AI search
+| 2 days
+Predictive dashboards
+| 2 days
+Automated reporting
+| 2 days
+Workflow intelligence
+| 2 days
+Executive insights
+| 2 days
+Advanced analytics
+| 1 day
+Benchmarking
+| 1 day
+Phase total
+| 15 days
+Phase 4 - Enterprise Expansion   future scope, not part of this engagement
+White-label theming
+Multi-org tenancy
+Subscription management
+Client administration
+Partner portals
+Additional ERP/CRM integrations
+Public APIs
+Module marketplace
+Total delivery time (Phases 1–3):   13 weeks
+11. Testing & Acceptance Criteria
+ID
+| Requirement
+QAT-01
+| Each requirement ID must map to at least one test case; a traceability matrix must be maintained.
+QAT-02
+| Testing must include unit, integration (including third-party sync/failure modes), permission/security testing, and user acceptance testing per module.
+QAT-03
+| Acceptance per phase requires all “must” requirements passing, no open critical/high defects, completed security review, and sign-off by the project owner.
+QAT-04
+| A staging environment seeded with anonymized representative data must be available for UAT.

@@ -1,0 +1,489 @@
+Proposal for GRACE Hub
+Unified Nonprofit Operations Platform
+Prepared for: Detroit Public Schools Community District Foundation
+Prepared by: Clustox
+Date: July 24, 2026
+Proposal Validity: 30 Days
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 1 of 14 --
+
+Table of Content
+Proposal for GRACE Hub 	2
+Unified Nonprofit Operations Platform 	2
+1. Executive Summary 	3
+A unified organizational record 	3
+More consistent execution 	3
+Stronger management visibility 	3
+2. Our Understanding of GRACE Hub 	3
+3. Proposed Solution 	4
+4. Functional and Requirements Coverage 	5
+4.1 Platform Architecture and Security 	5
+4.2 Shared Platform Services 	5
+4.3 Executive Leadership and Board 	6
+4.4 Advancement and Donor CRM 	6
+4.5 Grants 	6
+4.6 Finance 	7
+4.7 Communications, Events, and Programs 	7
+4.8 Operations and HR 	7
+4.9 Data, Integrations, Reporting, and AI 	8
+5. Proposed Technical Architecture 	8
+6. Security, AI, and Integration Approach 	9
+Security 	9
+AI 	9
+Integrations 	9
+7. Delivery Approach and Release Plan 	10
+8. Testing and Acceptance 	11
+9. Project Timeline 	11
+10. Financial Proposal 	12
+11. Assumptions and Exclusions 	12
+Assumptions 	13
+Exclusions 	13
+12. Next Steps 	13
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 2 of 14 --
+
+1. Executive Summary
+The Detroit Public Schools Community District Foundation has defined a clear ambition for
+GRACE Hub: to establish a single operating platform across fundraising, grants, finance,
+communications, programs, events, board activities, and internal operations.
+Today, these functions are supported through separate processes, systems, documents, and
+spreadsheets. This limits cross-department visibility, increases administrative effort, and makes
+organization-wide reporting more difficult.
+Clustox proposes a six-month implementation of GRACE Hub covering the Foundation’s Phase
+1, Phase 2, and Phase 3 requirements.
+The proposed platform is designed to deliver three outcomes:
+A unified organizational record
+Donor, grant, financial, program, event, board, and operational information will be managed
+through a shared data and permission model.
+More consistent execution
+Configurable workflows, task management, notifications, approvals, and reporting will reduce
+manual coordination across departments.
+Stronger management visibility
+Leadership will have access to consolidated dashboards, pending approvals, financial and
+fundraising performance, grant activity, and community-impact reporting.
+The platform will be delivered through six structured releases, allowing the Foundation to review
+progress, validate requirements, and manage implementation risk throughout the engagement.
+Phase 4 capabilities, including multi-organization tenancy, white-labeling, partner portals,
+subscription management, public APIs, and a module marketplace, are outside the current
+scope. The proposed architecture will, however, avoid design decisions that would prevent
+these capabilities from being introduced later.
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 3 of 14 --
+
+2. Our Understanding of GRACE Hub
+GRACE Hub is intended to become the Foundation’s shared operating system rather than
+another standalone departmental application.
+The platform must:
+● centralize information across departments;
+● reduce dependence on disconnected spreadsheets and tools;
+● automate approvals, reminders, reviews, and handoffs;
+● provide role-specific dashboards and reporting;
+● support donor, grant, finance, event, program, board, and operational workflows;
+● integrate with the Foundation’s Microsoft and financial systems;
+● centralize documents, policies, templates, and organizational knowledge;
+● introduce AI capabilities with appropriate governance and human oversight; and
+● maintain requirement-level traceability through development, testing, and acceptance.
+The Foundation’s technical specification assigns unique identifiers to individual requirements.
+Clustox will use these identifiers throughout design, delivery, testing, and acceptance.
+3. Proposed Solution
+Clustox proposes a modular, responsive, cloud-hosted web platform organized around five
+capability areas.
+Capability 	Scope
+Foundation and
+Governance
+Identity, permissions, audit, workflow, notifications, documents,
+search, administration, and shared platform services
+Revenue and
+Relationships
+Donor CRM, gifts, pledges, campaigns, prospect management,
+grants, and communications
+Finance and
+Controls
+QuickBooks and Bill.com integration, purchasing, invoice
+processing, approvals, spenddown, and financial reporting
+Programs and
+Operations
+Events, programs, participants, impact, tasks, board operations,
+knowledge, and training
+Intelligence and
+Reporting
+Executive dashboards, scheduled reporting, AI-assisted drafting,
+knowledge search, predictive insights, and workflow intelligence
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 4 of 14 --
+
+All departmental modules will use common identity, workflow, reporting, document, search,
+notification, and audit services. This creates a consistent operating and governance model
+across the platform while reducing duplicated functionality.
+4. Functional and Requirements Coverage
+4.1 Platform Architecture and Security
+Requirement
+IDs
+Proposed Coverage
+ARC-01 to
+ARC-06
+Modular architecture, shared services, separated environments, internal
+API layer, future multi-tenancy readiness, and responsive end-user
+workflows
+SEC-01 to
+SEC-02
+Azure Entra ID single sign-on, user provisioning, and user deactivation
+SEC-03 to
+SEC-05
+Platform roles, department scopes, record-level permissions,
+server-side authorization, and administrator-controlled access
+management
+SEC-06 to
+SEC-10
+Immutable audit logs, seven-year retention, encryption, field-level
+sensitivity, backups, and disaster recovery
+Security will be established as a platform capability from the initial release and validated
+throughout delivery.
+4.2 Shared Platform Services
+Requirement IDs Proposed Coverage
+WFL-01 to
+WFL-03
+Configurable sequential and parallel workflows, conditional routing,
+escalations, history, and Task Center visibility
+NTF-01 to
+NTF-03
+In-app and email notifications, user preferences, digest options, and
+record-level deep links
+DOC-01 to
+DOC-03
+Central repository, folders, tags, versioning, permissions, record
+attachments, and Microsoft 365 document access
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 5 of 14 --
+
+SRC-01 to
+SRC-03
+Permission-aware universal search with filters and defined response
+targets
+PLT-01 to PLT-02 Cross-module activity feed and shared organizational calendar
+4.3 Executive Leadership and Board
+Requirement
+IDs
+Proposed Coverage
+EXE-01 	Executive KPIs, department scorecards, financial, grant, fundraising,
+event, impact, approvals, and calendar views
+EXE-02 	Board, executive, KPI, department, impact, budget, grant, and
+fundraising reports with PDF and Excel export
+EXE-03 	Wizard-based board packet creation and permission-controlled board
+library
+EXE-04 	Board member, committee, assignment, and term management
+4.4 Advancement and Donor CRM
+Requirement
+IDs
+Proposed Coverage
+ADV-01 	Contacts, organizations, households, relationship mapping, notes,
+communication history, and attachments
+ADV-02 	Gifts, recurring gifts, pledges, schedules, receipts, and
+acknowledgement tracking
+ADV-03 	Prospect stages, proposals, stewardship activity, and renewal reminders
+ADV-04 	Emails, calls, meetings, follow-ups, and reminders on the contact
+timeline
+ADV-05 	Retention, LYBUNT, SYBUNT, average gift, lifetime giving, and pipeline
+analytics
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 6 of 14 --
+
+4.5 Grants
+Requirement
+IDs
+Proposed Coverage
+GRT-01 	Funder database, leads, opportunities, deadlines, and reminders
+GRT-02 	Proposal collaboration, tasks, budgets, attachments, and narrative
+reuse
+GRT-03 	Awards, amounts, restrictions, schedules, dates, and agreements
+GRT-04 	Milestones, reporting deadlines, communications, spenddown, and
+variance alerts
+GRT-05 	AI-assisted proposals, reports, and letters
+GRT-06 	Student, family, scholar, community, outcome, and impact tracking
+4.6 Finance
+Requirement
+IDs
+Proposed Coverage
+FIN-01 	Financial dashboard using synchronized QuickBooks data
+FIN-02 	Purchase orders, invoice upload, OCR assistance, approval routing,
+payment scheduling, three-way matching, Bill.com, and exception
+handling
+FIN-03 	P&L, balance sheet, budget, department, grant, and revenue reports
+FIN-04 	Expense attribution across departments, grants, and events
+4.7 Communications, Events, and Programs
+Requirement IDs Proposed Coverage
+COM-01 to
+COM-04
+Templates, segmentation, distribution lists, engagement tracking,
+event invitations, and AI-assisted communications
+EVT-01 to EVT-04 Planning, registration, mobile check-in, sponsors, vendors, financials,
+ROI, and historical reporting
+PRG-01 to
+PRG-03
+Programs, cohorts, participants, attendance, volunteers, outcomes,
+and impact reporting
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 7 of 14 --
+
+4.8 Operations and HR
+Requirement IDs Proposed Coverage
+OPS-01 to
+OPS-02
+Tasks, projects, assignments, approval workflows, status tracking,
+escalations, and notifications
+OPS-03 	Policies, SOPs, templates, forms, HR documents, and organizational
+resources
+HRA-01 	Employee directory, Entra synchronization, roles, permissions, and
+training records
+HRA-02 	Training videos, help articles, FAQs, and platform documentation
+4.9 Data, Integrations, Reporting, and AI
+Requirement
+IDs
+Proposed Coverage
+DAT-01 to
+DAT-03
+Shared metadata, permission scope, impact rollups, spreadsheet
+import, and contact deduplication
+INT-01 to INT-03 Queued integrations, retries, administrator logs, source-of-truth rules,
+and secrets management
+RPT-01 to
+RPT-04
+Shared reporting, scheduled delivery, near-real-time dashboards,
+predictive reporting, and advanced analytics
+AIS-01 to
+AIS-04
+Central AI layer, approved data handling, human review, audit
+attribution, grounded responses, and source citations
+5. Proposed Technical Architecture
+The final technology stack will be confirmed during design review, as requested in the technical
+specification.
+Our preliminary recommendation is:
+Area 	Preliminary Recommendation
+Frontend 	React / Next.js
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 8 of 14 --
+
+Backend 	.NET or Node.js modular services
+Database 	Microsoft SQL Server or PostgreSQL
+Cloud Hosting 	Microsoft Azure
+Identity 	Azure Entra ID
+Document
+Storage
+Azure Blob Storage with SharePoint and OneDrive integration
+Search 	Azure AI Search or equivalent permission-aware search service
+AI 	Approved enterprise AI provider through a centralized service layer
+Monitoring 	Azure Application Insights and centralized logging
+Deployment 	Automated CI/CD across development, staging, and production
+The final architecture will consider the Foundation’s Microsoft environment, data residency,
+security requirements, licensing, operating cost, scalability, and future Phase 4 plans.
+6. Security, AI, and Integration Approach
+Security
+The platform will include:
+● Azure Entra ID authentication;
+● platform, department, record, and field-level permissions;
+● server-side authorization;
+● encryption in transit and at rest;
+● secure secrets management;
+● immutable audit logging;
+● separated development, staging, and production environments; and
+● backup and disaster-recovery controls.
+AI
+The central AI service layer will support:
+● organizational knowledge search;
+● source-grounded responses;
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 9 of 14 --
+
+● grant proposal and report drafting;
+● letter and communication drafting;
+● predictive dashboards;
+● automated reporting;
+● workflow intelligence; and
+● executive insights.
+Foundation data will not be used to train public third-party models. AI-generated content will
+remain in draft form until reviewed by an authorized user. Knowledge-assistant responses will
+cite their supporting source documents, and AI activity will be recorded in the audit history.
+Integrations
+The platform will integrate with:
+● Azure Entra ID for identity and provisioning;
+● Microsoft 365 for email, calendars, documents, and meeting artifacts;
+● QuickBooks for accounting and financial data; and
+● Bill.com for vendors, bills, approvals, and payment status.
+Integration processes will include secure credentials, queues, retries, reconciliation,
+administrator-visible logs, and error alerts.
+7. Delivery Approach and Release Plan
+The Foundation’s requirements are organized into three delivery phases. Clustox proposes
+delivering those phases through six monthly releases.
+Release Primary Outcome 	Requirement Alignment
+Release
+1
+Platform foundation, identity,
+access control, core data model,
+and audit
+ARC-01–ARC-06, SEC-01–SEC-10, DAT-01
+Release
+2
+Donor CRM, grants, workflow,
+documents, search, tasks, and
+notifications
+WFL-01–WFL-03, NTF-01–NTF-03,
+DOC-01–DOC-03, SRC-01–SRC-03,
+PLT-01–PLT-02, ADV-01–ADV-04,
+GRT-01–GRT-03
+Release
+3
+Finance integrations,
+communications, reporting, and
+migration
+FIN-01, FIN-03–FIN-04, COM-01–COM-03,
+INT-01–INT-03, RPT-01–RPT-03,
+DAT-02–DAT-03
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 10 of 14 --
+
+Release
+4
+Events, programs, board,
+operations, knowledge, and HR
+EXE-03–EXE-04, EVT-01–EVT-04,
+PRG-01–PRG-03, OPS-01–OPS-03,
+HRA-01–HRA-02
+Release
+5
+Advanced grants, finance, donor
+analytics, AI, and executive
+intelligence
+ADV-05, GRT-04–GRT-06, FIN-02, COM-04,
+AIS-01–AIS-04, RPT-04, EXE-01–EXE-02
+Release
+6
+UAT, security validation,
+production launch, and handover
+QAT-01–QAT-04 and applicable non-functional
+requirements
+This structure preserves the Foundation’s scope while providing regular review points and
+clearer control over delivery risk.
+8. Testing and Acceptance
+Clustox will maintain a requirements traceability matrix linking each requirement ID to the
+relevant design item, development task, test case, and acceptance evidence.
+Testing will include:
+● unit and functional testing;
+● integration and failure-mode testing;
+● permission and security testing;
+● migration validation;
+● accessibility and browser testing;
+● performance testing;
+● regression testing; and
+● user acceptance testing.
+A staging environment with representative anonymized data will be made available for UAT.
+Acceptance will require all applicable mandatory requirements to pass, no unresolved critical or
+high-severity defects, completion of the relevant security review, and sign-off by the
+Foundation’s project owner.
+9. Project Timeline
+Month Release Primary Outcome
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 11 of 14 --
+
+Month 1 Release
+1
+Platform foundation and access control
+Month 2 Release
+2
+CRM, grants, and shared services
+Month 3 Release
+3
+Finance, communications, reporting, and
+migration
+Month 4 Release
+4
+Events, programs, board, operations, and HR
+Month 5 Release
+5
+AI, advanced workflows, and analytics
+Month 6 Release
+6
+UAT, launch, training, and handover
+The schedule assumes timely access to client stakeholders, systems, APIs, data, and
+consolidated feedback.
+10. Financial Proposal
+Release 	Investment
+Release 1 	USD 9,232
+Release 2 	USD 8,832
+Release 3 	USD 8,832
+Release 4 	USD 8,832
+Release 5 	USD 8,832
+Release 6 	USD 9,232
+Total Project Investment USD 53,792
+Each release will be invoiced at the start of the corresponding monthly delivery period.
+The investment includes:
+● business analysis and architecture;
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 12 of 14 --
+
+● UI and UX design;
+● frontend and backend development;
+● integration development;
+● cloud and deployment setup;
+● quality assurance;
+● project management;
+● technical and user documentation;
+● UAT support;
+● training and handover; and
+● two weeks of post-launch defect resolution.
+11. Assumptions and Exclusions
+Assumptions
+● The supplied technical specification represents the current scope.
+● The Foundation will provide access to Azure Entra ID, Microsoft 365, QuickBooks,
+Bill.com, and relevant documentation.
+● Required third-party accounts, licenses, and sandbox environments will be available
+when needed.
+● Existing source data will be provided in accessible formats.
+● The Foundation will support data mapping, cleansing decisions, and migration validation.
+● Feedback and approvals will be provided within agreed review periods.
+● The initial implementation will be single-tenant.
+● The solution will be delivered as a responsive web platform.
+● Final hosting, AI provider, data migration, email infrastructure, and disaster-recovery
+decisions will be confirmed during design review.
+Exclusions
+The proposal does not include:
+● Phase 4 enterprise expansion;
+● native mobile applications;
+● undocumented third-party integrations;
+● extensive manual data entry or data reconstruction;
+● third-party software licenses;
+● Azure hosting charges;
+● Microsoft licensing;
+● QuickBooks or Bill.com licensing;
+● AI model usage charges;
+● email, SMS, OCR, or payment-provider charges;
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 13 of 14 --
+
+● external penetration testing or certifications; or
+● ongoing maintenance after the included post-launch support period.
+Material changes to the agreed requirements will be managed through a mutually approved
+change request.
+12. Next Steps
+1. Review the proposed scope and requirements alignment.
+2. Confirm the open technical and commercial decisions.
+3. Finalize the detailed requirements traceability matrix.
+4. Confirm the delivery team and governance structure.
+5. Approve the proposal and execute the Statement of Work.
+6. Initiate Release 1 and the design-finalization process.
+Confidential and Proprietary. Prepared exclusively for the Detroit Public Schools Community District Foundation.
+
+-- 14 of 14 --
+

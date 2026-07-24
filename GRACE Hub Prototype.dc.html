@@ -90,22 +90,19 @@
 
   <div style="flex:1;display:flex;min-height:0">
     <nav style="width:216px;flex:none;background:#fff;border-right:1px solid #e4e3db;padding:12px 12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto">
-      <sc-for list="{{ nav }}" as="m" hint-placeholder-count="10">
-        <button onClick="{{ m.onGo }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;text-align:left;font-size:13.5px;font-weight:{{ m.weight }};color:{{ m.color }};background:{{ m.bg }}" style-hover="background:#f0efe9">
-          <span style="width:22px;text-align:center;font-size:15px">{{ m.icon }}</span>
-          <span style="flex:1">{{ m.label }}</span>
-          <sc-if value="{{ m.badge }}" hint-placeholder-val="{{ false }}"><span style="min-width:18px;height:18px;border-radius:9px;background:{{ m.badgeBg }};color:{{ m.badgeColor }};font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px">{{ m.badge }}</span></sc-if>
-        </button>
+      <sc-for list="{{ navGroups }}" as="g" hint-placeholder-count="6">
+        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:8px">
+          <sc-if value="{{ g.showLabel }}" hint-placeholder-val="{{ true }}"><div style="padding:8px 8px 4px;font-size:10px;font-weight:700;color:#a9b0a9;text-transform:uppercase;letter-spacing:.5px;line-height:1.3">{{ g.label }}</div></sc-if>
+          <sc-for list="{{ g.items }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.onGo }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;text-align:left;font-size:13px;font-weight:{{ m.weight }};color:{{ m.color }};background:{{ m.bg }}" style-hover="background:#f0efe9">
+              <span style="width:20px;text-align:center;font-size:14px">{{ m.icon }}</span>
+              <span style="flex:1;min-width:0">{{ m.label }}</span>
+              <sc-if value="{{ m.alert }}" hint-placeholder-val="{{ false }}"><span style="min-width:17px;height:17px;border-radius:9px;background:{{ m.alertBg }};color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px">{{ m.alert }}</span></sc-if>
+            </button>
+          </sc-for>
+        </div>
       </sc-for>
-      <div style="margin-top:14px;padding:0 8px 6px;font-size:10.5px;font-weight:700;color:#a9b0a9;text-transform:uppercase;letter-spacing:.5px">Platform</div>
-      <sc-for list="{{ adminNav }}" as="m" hint-placeholder-count="3">
-        <button onClick="{{ m.onGo }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;text-align:left;font-size:13.5px;font-weight:{{ m.weight }};color:{{ m.color }};background:{{ m.bg }}" style-hover="background:#f0efe9">
-          <span style="width:22px;text-align:center;font-size:15px">{{ m.icon }}</span>
-          <span style="flex:1">{{ m.label }}</span>
-          <sc-if value="{{ m.badge }}" hint-placeholder-val="{{ false }}"><span style="min-width:18px;height:18px;border-radius:9px;background:{{ m.badgeBg }};color:{{ m.badgeColor }};font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px">{{ m.badge }}</span></sc-if>
-        </button>
-      </sc-for>
-      <div style="margin-top:auto;padding:10px 11px;border-top:1px solid #eeede7;font-size:11px;color:#9aa39d;line-height:1.5">Prototype demo · v0.1<br>All data is illustrative.</div>
+      <div style="margin-top:auto;padding:10px 11px;border-top:1px solid #eeede7;font-size:11px;color:#9aa39d;line-height:1.5">Requirements prototype<br>Illustrative data only.</div>
     </nav>
 
     <main style="flex:1;min-width:0;overflow-y:auto;background:#f6f5f1">
@@ -418,8 +415,20 @@
         <sc-if value="{{ isEvents }}" hint-placeholder-val="{{ false }}">
           <div style="animation:gh-fade .18s ease">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">◆ Events</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">EVT-01 … EVT-04</span></div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0 16px">
+              <sc-for list="{{ eventTabs }}" as="e" hint-placeholder-count="2"><button onClick="{{ e.onGo }}" style="height:32px;padding:0 14px;border-radius:17px;font-size:12.5px;font-weight:600;border:1px solid {{ e.border }};background:{{ e.bg }};color:{{ e.color }}">{{ e.label }}</button></sc-for>
+              <button onClick="{{ openNewEvent }}" style="height:32px;padding:0 13px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:12.5px;font-weight:600" style-hover="background:#16564a">+ New event</button>
+            </div>
+            <sc-if value="{{ noEvent }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:40px;text-align:center;color:#6b7269;font-size:13.5px">No events yet. Create one to start taking registrations.</div>
+            </sc-if>
+            <sc-if value="{{ hasEvent }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px">
-              <div><h1 style="margin:0;font-family:Newsreader,serif;font-weight:500;font-size:29px">Annual Gala 2026</h1><div style="font-size:13px;color:#6b7269;margin-top:2px">April 18 · MGM Grand Detroit · 6:30 PM</div></div>
+              <div><h1 style="margin:0;font-family:Newsreader,serif;font-weight:500;font-size:29px">{{ evName }}</h1><div style="font-size:13px;color:#6b7269;margin-top:2px">{{ evVenue }}</div></div>
+              <div style="display:flex;gap:8px;flex:none">
+                <button onClick="{{ onEditEvent }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #e4e3db;background:#fff;font-size:12.5px;font-weight:600;color:#4a524b" style-hover="background:#f6f5f1">✎ Edit</button>
+                <button onClick="{{ onDeleteEvent }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #e0ceca;background:#fff;font-size:12.5px;font-weight:600;color:#b3402f" style-hover="background:#fbf1ef">🗑</button>
+              </div>
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px">
               <sc-for list="{{ eventStats }}" as="st" hint-placeholder-count="4">
@@ -451,6 +460,7 @@
                 <div style="margin-top:14px;padding-top:13px;border-top:1px solid #f1f0ea;font-size:12px;color:#6b7269;line-height:1.5">Total committed: <b style="color:#17201c">{{ sponsorTotal }}</b> · reporting covers revenue, ROI and YoY comparison.</div>
               </div>
             </div>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -786,6 +796,200 @@
           </div>
         </sc-if>
 
+        <sc-if value="{{ isWorkflows }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">⚙ Workflows</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">WFL-01 … WFL-03 · no-code configuration</span></div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px">
+              <div><h1 style="margin:0;font-family:Newsreader,serif;font-weight:500;font-size:29px">Workflow builder</h1><p style="margin:4px 0 0;font-size:13.5px;color:#6b7269">Administrators define routing, conditions and escalations without developer involvement.</p></div>
+              <button onClick="{{ openNewWf }}" style="height:36px;padding:0 15px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13px;font-weight:600;flex:none" style-hover="background:#16564a">+ New workflow</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ wfList }}" as="w" hint-placeholder-count="3">
+                <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:18px 19px">
+                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;align-items:center;gap:9px"><span style="font-size:15px;font-weight:700">{{ w.name }}</span><span style="font-size:11px;font-weight:700;color:{{ w.onColor }};background:{{ w.onBg }};border-radius:6px;padding:2px 8px">{{ w.onLabel }}</span></div>
+                      <div style="font-size:12px;color:#6b7269;margin-top:3px">Trigger: {{ w.trigger }} · escalates after {{ w.escalate }} · <b style="color:#17201c">{{ w.active }}</b> running</div>
+                    </div>
+                    <button onClick="{{ w.onToggle }}" title="Activate / pause" style="width:38px;height:22px;border-radius:12px;background:{{ w.knobBg }};position:relative;flex:none"><span style="position:absolute;top:2px;left:{{ w.knobX }};width:18px;height:18px;border-radius:50%;background:#fff"></span></button>
+                    <button onClick="{{ w.onEdit }}" title="Edit" style="width:28px;height:28px;border-radius:7px;color:#6b7269;font-size:12px;flex:none" style-hover="background:#eef1f4;color:#356a8a">✎</button>
+                    <button onClick="{{ w.onDelete }}" title="Delete" style="width:28px;height:28px;border-radius:7px;color:#c08a80;font-size:12px;flex:none" style-hover="background:#fbf1ef;color:#b3402f">🗑</button>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                    <sc-for list="{{ w.steps }}" as="st" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:8px;border:1px solid #ecebe4;background:#faf9f5;border-radius:10px;padding:9px 11px">
+                        <span style="width:20px;height:20px;border-radius:50%;background:#e7f1ed;color:#1f6b5c;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none">{{ st.n }}</span>
+                        <span><span style="font-size:12.5px;font-weight:600;display:block">{{ st.role }}</span><span style="font-size:10.5px;color:#9aa39d">{{ st.cond }}</span></span>
+                        <button onClick="{{ st.onRemove }}" title="Remove step" style="width:20px;height:20px;border-radius:5px;color:#c08a80;font-size:11px;flex:none" style-hover="background:#fbf1ef;color:#b3402f">×</button>
+                      </div>
+                    </sc-for>
+                    <button onClick="{{ w.onAddStep }}" style="height:38px;padding:0 13px;border-radius:10px;border:1px dashed #cfcec5;background:#fff;font-size:12.5px;font-weight:600;color:#1f6b5c" style-hover="background:#f0f6f4">+ Add step</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDocuments }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">▤ Documents</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">DOC-01 … DOC-03 · versioned &amp; permissioned</span></div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px">
+              <h1 style="margin:0;font-family:Newsreader,serif;font-weight:500;font-size:29px">Document repository</h1>
+              <sc-if value="{{ notUploading }}" hint-placeholder-val="{{ true }}"><button onClick="{{ onUpload }}" style="height:36px;padding:0 15px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13px;font-weight:600;flex:none" style-hover="background:#16564a">⇪ Upload document</button></sc-if>
+              <sc-if value="{{ uploading }}" hint-placeholder-val="{{ false }}"><div style="height:36px;padding:0 15px;border-radius:9px;background:#e7f1ed;color:#1f6b5c;font-size:13px;font-weight:600;display:flex;align-items:center;flex:none">Uploading &amp; versioning…</div></sc-if>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+              <sc-for list="{{ repoTags }}" as="t" hint-placeholder-count="6"><button onClick="{{ t.onGo }}" style="height:30px;padding:0 12px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}</button></sc-for>
+            </div>
+            <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:2.4fr 1fr .7fr .8fr 1fr auto;padding:11px 18px;font-size:11px;font-weight:700;color:#8a908a;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #f1f0ea"><div>Document</div><div>Tag</div><div>Version</div><div>Size</div><div>Updated</div><div style="width:120px"></div></div>
+              <sc-for list="{{ repoDocs }}" as="d" hint-placeholder-count="5">
+                <div style="display:grid;grid-template-columns:2.4fr 1fr .7fr .8fr 1fr auto;align-items:center;padding:12px 18px;border-bottom:1px solid #f4f3ee" style-hover="background:#faf9f4">
+                  <div style="display:flex;align-items:center;gap:10px"><span style="width:30px;height:30px;border-radius:8px;background:#eef1f4;color:#356a8a;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none">▤</span><span style="font-size:13px;font-weight:600">{{ d.name }} {{ d.lockIcon }}</span></div>
+                  <div><span style="font-size:11.5px;font-weight:600;color:#4a524b;background:#f0efe9;border-radius:6px;padding:3px 8px">{{ d.tag }}</span></div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500">{{ d.ver }}</div>
+                  <div style="font-size:12px;color:#6b7269">{{ d.size }}</div>
+                  <div style="font-size:12px;color:#9aa39d">{{ d.updated }}</div>
+                  <div style="display:flex;gap:5px;width:120px;justify-content:flex-end"><button onClick="{{ d.onVersion }}" style="height:27px;padding:0 9px;border-radius:7px;border:1px solid #e4e3db;background:#fff;font-size:11.5px;font-weight:600;color:#356a8a" style-hover="background:#eef1f4">+ Version</button><button onClick="{{ d.onDelete }}" title="Delete" style="width:27px;height:27px;border-radius:7px;color:#c08a80;font-size:12px" style-hover="background:#fbf1ef;color:#b3402f">🗑</button></div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ repoEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:30px;text-align:center;color:#6b7269;font-size:13px">No documents with this tag.</div></sc-if>
+            </div>
+            <div style="margin-top:14px;font-size:12px;color:#6b7269;line-height:1.5">Office documents open through Microsoft 365 (SharePoint / OneDrive). Deletions are soft with 90-day recovery. 🔒 marks restricted libraries.</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCalendar }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">▦ Calendar</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">PLT-02 · aggregated across modules</span></div>
+            <h1 style="margin:0 0 14px;font-family:Newsreader,serif;font-weight:500;font-size:29px">April 2026</h1>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+              <sc-for list="{{ calTabs }}" as="t" hint-placeholder-count="5"><button onClick="{{ t.onGo }}" style="height:30px;padding:0 12px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }}">{{ t.label }}</button></sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:16px">
+              <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:16px">
+                <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:8px">
+                  <div style="font-size:10.5px;font-weight:700;color:#9aa39d;text-align:center">MON</div><div style="font-size:10.5px;font-weight:700;color:#9aa39d;text-align:center">TUE</div><div style="font-size:10.5px;font-weight:700;color:#9aa39d;text-align:center">WED</div><div style="font-size:10.5px;font-weight:700;color:#9aa39d;text-align:center">THU</div><div style="font-size:10.5px;font-weight:700;color:#9aa39d;text-align:center">FRI</div><div style="font-size:10.5px;font-weight:700;color:#9aa39d;text-align:center">SAT</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">
+                  <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="30">
+                    <div style="min-height:62px;border:1px solid #f1f0ea;border-radius:8px;padding:5px 6px;background:{{ c.bg }}">
+                      <div style="font-size:10.5px;font-weight:700;color:#9aa39d">{{ c.day }}</div>
+                      <sc-if value="{{ c.has }}" hint-placeholder-val="{{ false }}"><div style="font-size:10px;font-weight:600;color:{{ c.color }};line-height:1.25;margin-top:3px">{{ c.title }}<div style="color:#9aa39d;font-weight:500">{{ c.more }}</div></div></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:19px">
+                <h2 style="margin:0 0 12px;font-size:15.5px;font-weight:700">This month</h2>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <sc-for list="{{ calList }}" as="e" hint-placeholder-count="8">
+                    <div style="display:flex;align-items:center;gap:11px;border:1px solid #ecebe4;border-radius:10px;padding:9px 11px">
+                      <span style="font-size:10.5px;font-weight:700;color:{{ e.color }};background:{{ e.bg }};border-radius:6px;padding:4px 8px;flex:none;font-family:'IBM Plex Mono',monospace">{{ e.day }}</span>
+                      <span style="flex:1;min-width:0"><span style="font-size:12.5px;font-weight:600;display:block">{{ e.title }}</span><span style="font-size:10.5px;color:#9aa39d">{{ e.kind }}</span></span>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ calEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:20px;text-align:center;color:#6b7269;font-size:13px">Nothing in this category.</div></sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isReports }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">📊 Reports</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">RPT-01 … RPT-03 · shared reporting service</span></div>
+            <h1 style="margin:0 0 16px;font-family:Newsreader,serif;font-weight:500;font-size:29px">Reporting</h1>
+            <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px">
+              <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:19px">
+                <h2 style="margin:0 0 4px;font-size:15.5px;font-weight:700">Report catalog</h2>
+                <p style="margin:0 0 13px;font-size:12.5px;color:#6b7269">Consistent filters across modules; export to PDF and Excel.</p>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <sc-for list="{{ reportCatalog }}" as="r" hint-placeholder-count="6">
+                    <div style="display:flex;align-items:center;gap:12px;border:1px solid #ecebe4;border-radius:11px;padding:11px 13px" style-hover="background:#faf9f4">
+                      <div style="width:32px;height:32px;border-radius:8px;background:#e6eef4;color:#356a8a;display:flex;align-items:center;justify-content:center;font-size:14px;flex:none">📊</div>
+                      <div style="flex:1;min-width:0"><div style="font-size:13.5px;font-weight:600">{{ r.name }}</div><div style="font-size:11.5px;color:#9aa39d">{{ r.desc }}</div></div>
+                      <span style="font-size:10.5px;font-weight:700;color:#6b7269;font-family:'IBM Plex Mono',monospace">{{ r.fmt }}</span>
+                      <sc-if value="{{ r.idle }}" hint-placeholder-val="{{ true }}"><button onClick="{{ r.onRun }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #e4e3db;background:#fff;font-size:12px;font-weight:600;color:#1f6b5c;flex:none" style-hover="background:#f0f6f4">Generate</button></sc-if>
+                      <sc-if value="{{ r.running }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:600;color:#356a8a;flex:none">Generating…</span></sc-if>
+                      <sc-if value="{{ r.done }}" hint-placeholder-val="{{ false }}"><button onClick="{{ r.onRun }}" style="height:30px;padding:0 12px;border-radius:8px;background:#e7f1ed;color:#1f6b5c;font-size:12px;font-weight:700;flex:none">↓ Download</button></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:19px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><h2 style="margin:0;font-size:15.5px;font-weight:700">Scheduled delivery</h2><button onClick="{{ openNewSched }}" style="height:29px;padding:0 11px;border-radius:8px;background:#1f6b5c;color:#fff;font-size:11.5px;font-weight:600" style-hover="background:#16564a">+ Add</button></div>
+                <p style="margin:0 0 13px;font-size:12.5px;color:#6b7269">Emailed automatically to named recipients.</p>
+                <div style="display:flex;flex-direction:column;gap:9px">
+                  <sc-for list="{{ schedules }}" as="x" hint-placeholder-count="2">
+                    <div style="border:1px solid #ecebe4;border-radius:10px;padding:11px 13px" style-hover="background:#faf9f4">
+                      <div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;flex:1">{{ x.name }}</span><button onClick="{{ x.onEdit }}" title="Edit" style="width:24px;height:24px;border-radius:6px;color:#6b7269;font-size:11px" style-hover="background:#eef1f4;color:#356a8a">✎</button><button onClick="{{ x.onDelete }}" title="Delete" style="width:24px;height:24px;border-radius:6px;color:#c08a80;font-size:11px" style-hover="background:#fbf1ef;color:#b3402f">🗑</button></div>
+                      <div style="font-size:11.5px;color:#6b7269;margin-top:3px">{{ x.freq }} · {{ x.fmt }} → {{ x.to }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="margin-top:14px;padding-top:13px;border-top:1px solid #f1f0ea;font-size:11.5px;color:#9aa39d;line-height:1.5">Dashboards refresh from live data or caches no more than 15 minutes stale (RPT-03).</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isImport }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:gh-fade .18s ease">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">⇪ Data import</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">DAT-03 · migration &amp; deduplication</span></div>
+            <h1 style="margin:0 0 18px;font-family:Newsreader,serif;font-weight:500;font-size:29px">Import contacts</h1>
+            <div style="display:flex;gap:8px;margin-bottom:20px">
+              <sc-for list="{{ importSteps }}" as="st" hint-placeholder-count="4">
+                <div style="flex:1;display:flex;align-items:center;gap:9px"><span style="width:26px;height:26px;border-radius:50%;background:{{ st.bg }};color:{{ st.color }};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none">{{ st.n }}</span><span style="font-size:12.5px;font-weight:600;color:#4a524b">{{ st.label }}</span></div>
+              </sc-for>
+            </div>
+            <div style="background:#fff;border:1px solid #e4e3db;border-radius:14px;padding:24px">
+              <sc-if value="{{ importStep0 }}" hint-placeholder-val="{{ true }}">
+                <div style="border:2px dashed #cfcec5;border-radius:12px;padding:44px;text-align:center">
+                  <div style="font-size:32px;margin-bottom:10px">⇪</div>
+                  <div style="font-size:15px;font-weight:700;margin-bottom:4px">Drop a spreadsheet here</div>
+                  <div style="font-size:12.5px;color:#6b7269;margin-bottom:18px">CSV or Excel exported from your legacy system.</div>
+                  <button onClick="{{ onImportNext }}" style="height:38px;padding:0 18px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13.5px;font-weight:600" style-hover="background:#16564a">Select file</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ importStep1 }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:14px;font-weight:700;margin-bottom:3px">legacy-donors.csv</div>
+                <div style="font-size:12.5px;color:#6b7269;margin-bottom:16px">{{ importRows }} rows detected · map the source columns to GRACE Hub fields.</div>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+                  <sc-for list="{{ importMap }}" as="m" hint-placeholder-count="5">
+                    <div style="display:flex;align-items:center;gap:12px;border:1px solid #ecebe4;border-radius:10px;padding:11px 13px">
+                      <span style="width:24px;height:24px;border-radius:50%;background:{{ m.markBg }};color:{{ m.markColor }};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none">{{ m.mark }}</span>
+                      <span style="flex:1;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#4a524b">{{ m.src }}</span>
+                      <span style="color:#c9c8bf">→</span>
+                      <span style="flex:1;font-size:12.5px;font-weight:600">{{ m.dest }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <button onClick="{{ onImportNext }}" style="height:38px;padding:0 18px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13.5px;font-weight:600" style-hover="background:#16564a">Continue to duplicates →</button>
+              </sc-if>
+              <sc-if value="{{ importStep2 }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:14px;font-weight:700;margin-bottom:3px">26 potential duplicates found</div>
+                <div style="font-size:12.5px;color:#6b7269;margin-bottom:16px">Matched on email and name. Merging keeps the existing record and adds new giving history.</div>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+                  <div style="display:flex;align-items:center;gap:12px;border:1px solid #ecebe4;border-radius:10px;padding:11px 13px;background:#faf9f5"><span style="font-size:12.5px;font-weight:600;flex:1">Marcus &amp; Denise Hall</span><span style="font-size:11.5px;color:#6b7269">m.hall@email.com</span><span style="font-size:11px;font-weight:700;color:#a5751c;background:#f6edda;border-radius:5px;padding:2px 8px">Merge</span></div>
+                  <div style="display:flex;align-items:center;gap:12px;border:1px solid #ecebe4;border-radius:10px;padding:11px 13px;background:#faf9f5"><span style="font-size:12.5px;font-weight:600;flex:1">GM Corporate Giving</span><span style="font-size:11.5px;color:#6b7269">giving@gm.com</span><span style="font-size:11px;font-weight:700;color:#a5751c;background:#f6edda;border-radius:5px;padding:2px 8px">Merge</span></div>
+                  <div style="font-size:11.5px;color:#9aa39d;padding-left:2px">…and 24 more</div>
+                </div>
+                <button onClick="{{ onImportNext }}" style="height:38px;padding:0 18px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13.5px;font-weight:600" style-hover="background:#16564a">Merge &amp; import</button>
+              </sc-if>
+              <sc-if value="{{ importStep3 }}" hint-placeholder-val="{{ false }}">
+                <div style="text-align:center;padding:26px 10px">
+                  <div style="width:56px;height:56px;border-radius:14px;background:#e7f1ed;color:#1f6b5c;font-size:26px;display:flex;align-items:center;justify-content:center;margin:0 auto 13px">✓</div>
+                  <div style="font-size:16px;font-weight:700">Import complete</div>
+                  <div style="font-size:13px;color:#6b7269;margin:4px 0 18px">386 contacts created · 26 duplicates merged · 0 errors</div>
+                  <button onClick="{{ onResetImport }}" style="height:38px;padding:0 18px;border-radius:9px;border:1px solid #e4e3db;background:#fff;font-size:13px;font-weight:600;color:#4a524b">Import another file</button>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+
         <sc-if value="{{ isScaffold }}" hint-placeholder-val="{{ false }}">
           <div style="animation:gh-fade .18s ease">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:#1f6b5c;background:#e7f1ed;border-radius:6px;padding:3px 9px">{{ scaffold.icon }} {{ scaffold.name }}</span><span style="font-size:12px;color:#6b7269;font-family:'IBM Plex Mono',monospace">{{ scaffold.reqs }}</span></div>
@@ -815,6 +1019,13 @@
       <div onClick="{{ toggleNotif }}" style="position:fixed;inset:0;background:rgba(20,32,28,.28);z-index:50"></div>
       <div style="position:fixed;top:0;right:0;bottom:0;width:360px;background:#fff;z-index:51;box-shadow:-10px 0 40px rgba(0,0,0,.18);display:flex;flex-direction:column;animation:gh-drawer .2s ease">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:17px 19px;border-bottom:1px solid #eeede7"><div style="font-size:16px;font-weight:700">Notifications</div><button onClick="{{ markAllRead }}" style="font-size:12.5px;color:#1f6b5c;font-weight:600">Mark all read</button></div>
+        <div style="padding:14px 19px;border-bottom:1px solid #eeede7;background:#faf9f5">
+          <div style="font-size:10.5px;font-weight:700;color:#8a908a;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px">Preferences · NTF-01</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px"><span style="flex:1;font-size:13px;font-weight:600">In-app</span><button onClick="{{ onToggleInapp }}" style="width:38px;height:22px;border-radius:12px;background:{{ npInappBg }};position:relative;flex:none"><span style="position:absolute;top:2px;left:{{ npInappX }};width:18px;height:18px;border-radius:50%;background:#fff"></span></button></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:11px"><span style="flex:1;font-size:13px;font-weight:600">Email</span><button onClick="{{ onToggleEmail }}" style="width:38px;height:22px;border-radius:12px;background:{{ npEmailBg }};position:relative;flex:none"><span style="position:absolute;top:2px;left:{{ npEmailX }};width:18px;height:18px;border-radius:50%;background:#fff"></span></button></div>
+          <div style="font-size:12px;color:#6b7269;margin-bottom:7px">Digest</div>
+          <div style="display:flex;gap:6px"><sc-for list="{{ digestOpts }}" as="d" hint-placeholder-count="3"><button onClick="{{ d.onGo }}" style="flex:1;height:28px;border-radius:8px;font-size:11.5px;font-weight:600;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.color }};text-transform:capitalize">{{ d.label }}</button></sc-for></div>
+        </div>
         <div style="flex:1;overflow-y:auto;padding:8px">
           <sc-for list="{{ notifications }}" as="n" hint-placeholder-count="5">
             <div style="display:flex;gap:11px;padding:12px;border-radius:10px;background:{{ n.bg }};margin-bottom:4px">
@@ -934,6 +1145,57 @@
             <sc-if value="{{ ifm.showError }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;color:#b3402f;background:#fbf1ef;border-radius:8px;padding:9px 11px">{{ ifm.errorMsg }}</div></sc-if>
           </div>
           <div style="padding:15px 22px;border-top:1px solid #eeede7;display:flex;justify-content:flex-end;gap:10px"><button onClick="{{ closeInvoiceModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #e4e3db;background:#fff;font-size:13.5px;font-weight:600;color:#4a524b">Cancel</button><button onClick="{{ saveInvoice }}" style="height:38px;padding:0 18px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13.5px;font-weight:600" style-hover="background:#16564a">Save invoice</button></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ wfModalOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeWfModal }}" style="position:fixed;inset:0;background:rgba(20,32,28,.4);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px">
+        <div onClick="{{ stop }}" style="width:440px;max-width:100%;background:#fff;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.3);overflow:hidden;animation:gh-fade .16s ease">
+          <div style="padding:18px 22px;border-bottom:1px solid #eeede7;display:flex;align-items:center;justify-content:space-between"><div style="font-size:17px;font-weight:700">{{ wfModalTitle }}</div><button onClick="{{ closeWfModal }}" style="font-size:20px;color:#9aa39d;width:28px;height:28px">×</button></div>
+          <div style="padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+            <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Workflow name</label><input value="{{ wff.name }}" onInput="{{ onWfName }}" placeholder="e.g. Contract approval" style="width:100%;height:38px;border:1px solid {{ wff.nameErr }};border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"/></div>
+            <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Trigger</label><input value="{{ wff.trigger }}" onInput="{{ onWfTrigger }}" placeholder="e.g. Contract submitted" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"/></div>
+            <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Escalate after</label><select value="{{ wff.escalate }}" onChange="{{ onWfEscalate }}" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"><option value="1 day">1 day</option><option value="2 days">2 days</option><option value="3 days">3 days</option><option value="5 days">5 days</option><option value="never">never</option></select></div>
+            <sc-if value="{{ wff.showError }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;color:#b3402f;background:#fbf1ef;border-radius:8px;padding:9px 11px">{{ wff.errorMsg }}</div></sc-if>
+          </div>
+          <div style="padding:15px 22px;border-top:1px solid #eeede7;display:flex;justify-content:flex-end;gap:10px"><button onClick="{{ closeWfModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #e4e3db;background:#fff;font-size:13.5px;font-weight:600;color:#4a524b">Cancel</button><button onClick="{{ saveWf }}" style="height:38px;padding:0 18px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13.5px;font-weight:600" style-hover="background:#16564a">Save workflow</button></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ schedModalOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeSchedModal }}" style="position:fixed;inset:0;background:rgba(20,32,28,.4);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px">
+        <div onClick="{{ stop }}" style="width:440px;max-width:100%;background:#fff;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.3);overflow:hidden;animation:gh-fade .16s ease">
+          <div style="padding:18px 22px;border-bottom:1px solid #eeede7;display:flex;align-items:center;justify-content:space-between"><div style="font-size:17px;font-weight:700">{{ schedModalTitle }}</div><button onClick="{{ closeSchedModal }}" style="font-size:20px;color:#9aa39d;width:28px;height:28px">×</button></div>
+          <div style="padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+            <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Report</label><input value="{{ shf.name }}" onInput="{{ onShName }}" placeholder="e.g. Board financial summary" style="width:100%;height:38px;border:1px solid {{ shf.nameErr }};border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"/></div>
+            <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:12px">
+              <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Frequency</label><select value="{{ shf.freq }}" onChange="{{ onShFreq }}" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"><option value="Weekly · Monday">Weekly · Monday</option><option value="Monthly · 1st">Monthly · 1st</option><option value="Quarterly">Quarterly</option><option value="Annually">Annually</option></select></div>
+              <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Format</label><select value="{{ shf.fmt }}" onChange="{{ onShFmt }}" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"><option value="PDF">PDF</option><option value="Excel">Excel</option></select></div>
+            </div>
+            <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Recipients</label><input value="{{ shf.to }}" onInput="{{ onShTo }}" placeholder="e.g. Board Chair, Treasurer" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"/></div>
+            <sc-if value="{{ shf.showError }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;color:#b3402f;background:#fbf1ef;border-radius:8px;padding:9px 11px">{{ shf.errorMsg }}</div></sc-if>
+          </div>
+          <div style="padding:15px 22px;border-top:1px solid #eeede7;display:flex;justify-content:flex-end;gap:10px"><button onClick="{{ closeSchedModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #e4e3db;background:#fff;font-size:13.5px;font-weight:600;color:#4a524b">Cancel</button><button onClick="{{ saveSched }}" style="height:38px;padding:0 18px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13.5px;font-weight:600" style-hover="background:#16564a">Save schedule</button></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ eventModalOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeEventModal }}" style="position:fixed;inset:0;background:rgba(20,32,28,.4);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px">
+        <div onClick="{{ stop }}" style="width:440px;max-width:100%;background:#fff;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.3);overflow:hidden;animation:gh-fade .16s ease">
+          <div style="padding:18px 22px;border-bottom:1px solid #eeede7;display:flex;align-items:center;justify-content:space-between"><div style="font-size:17px;font-weight:700">{{ eventModalTitle }}</div><button onClick="{{ closeEventModal }}" style="font-size:20px;color:#9aa39d;width:28px;height:28px">×</button></div>
+          <div style="padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+            <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Event name</label><input value="{{ evf.name }}" onInput="{{ onEvName }}" placeholder="e.g. Annual Gala 2027" style="width:100%;height:38px;border:1px solid {{ evf.nameErr }};border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"/></div>
+            <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Venue</label><input value="{{ evf.venue }}" onInput="{{ onEvVenue }}" placeholder="e.g. MGM Grand Detroit" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"/></div>
+            <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:12px">
+              <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Date &amp; time</label><input value="{{ evf.date }}" onInput="{{ onEvDate }}" placeholder="e.g. April 18 · 6:30 PM" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none"/></div>
+              <div><label style="font-size:12.5px;font-weight:600;color:#4a524b;display:block;margin-bottom:5px">Budget</label><input value="{{ evf.budget }}" onInput="{{ onEvBudget }}" inputmode="numeric" placeholder="0" style="width:100%;height:38px;border:1px solid #e4e3db;border-radius:9px;padding:0 11px;font-size:13.5px;background:#faf9f5;outline:none;font-family:'IBM Plex Mono',monospace"/></div>
+            </div>
+            <sc-if value="{{ evf.showError }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;color:#b3402f;background:#fbf1ef;border-radius:8px;padding:9px 11px">{{ evf.errorMsg }}</div></sc-if>
+          </div>
+          <div style="padding:15px 22px;border-top:1px solid #eeede7;display:flex;justify-content:flex-end;gap:10px"><button onClick="{{ closeEventModal }}" style="height:38px;padding:0 16px;border-radius:9px;border:1px solid #e4e3db;background:#fff;font-size:13.5px;font-weight:600;color:#4a524b">Cancel</button><button onClick="{{ saveEvent }}" style="height:38px;padding:0 18px;border-radius:9px;background:#1f6b5c;color:#fff;font-size:13.5px;font-weight:600" style-hover="background:#16564a">Save event</button></div>
         </div>
       </div>
     </sc-if>
@@ -1113,6 +1375,42 @@ class Component extends DCLogic {
       { id:'au8', actor:'K. Obi', action:'delete', target:'Program participant · (redacted)', time:'3 days ago', kind:'delete' },
     ],
     auditFilter:'all',
+    notifPrefs:{ inapp:true, email:true, digest:'daily' },
+    wfModal:null, wff:{ name:'', trigger:'', escalate:'3 days', showError:false, errorMsg:'' },
+    wfDefs:[
+      { id:'w1', name:'Invoice approval', trigger:'Invoice submitted', escalate:'3 days', on:true, active:4,
+        steps:[{role:'Department head',cond:'all invoices'},{role:'Finance Manager',cond:'over $2,500'},{role:'Executive Director',cond:'over $10,000'}] },
+      { id:'w2', name:'Grant report sign-off', trigger:'Report drafted', escalate:'2 days', on:true, active:2,
+        steps:[{role:'Grants Manager',cond:'all reports'},{role:'Executive Director',cond:'final submission'}] },
+      { id:'w3', name:'Board packet review', trigger:'Packet assembled', escalate:'5 days', on:true, active:1,
+        steps:[{role:'Executive Director',cond:'all packets'},{role:'Board Chair',cond:'all packets'}] },
+    ],
+    repo:[
+      { id:'f1', name:'Employee handbook.pdf', tag:'Policy', ver:4, size:'2.4 MB', owner:'HR', updated:'Mar 2026', locked:true },
+      { id:'f2', name:'Gift acceptance policy.docx', tag:'Finance', ver:2, size:'380 KB', owner:'Finance', updated:'Feb 2026', locked:false },
+      { id:'f3', name:'Grant proposal template.docx', tag:'Grants', ver:3, size:'510 KB', owner:'Grants', updated:'Jan 2026', locked:false },
+      { id:'f4', name:'Brand & boilerplate.pdf', tag:'Comms', ver:5, size:'1.1 MB', owner:'Comms', updated:'Mar 2026', locked:false },
+      { id:'f5', name:'Board minutes Q4 2025.pdf', tag:'Board', ver:1, size:'720 KB', owner:'Executive', updated:'Dec 2025', locked:true },
+    ],
+    repoTag:'all', uploading:false,
+    calFilter:'all',
+    calEvents:[
+      { id:'ce1', day:2, title:'Kresge report due', kind:'grant' },
+      { id:'ce2', day:8, title:'Finance close', kind:'finance' },
+      { id:'ce3', day:11, title:'Q2 Board meeting', kind:'board' },
+      { id:'ce4', day:15, title:'Scholars cohort session', kind:'program' },
+      { id:'ce5', day:18, title:'Annual Gala', kind:'event' },
+      { id:'ce6', day:22, title:'Scholarship Breakfast', kind:'event' },
+      { id:'ce7', day:24, title:'Ford LOI deadline', kind:'grant' },
+      { id:'ce8', day:29, title:'Spring appeal send', kind:'comms' },
+    ],
+    reportRunning:null, reportDone:{},
+    schedules:[
+      { id:'sc1', name:'Board financial summary', freq:'Monthly · 1st', to:'Board Chair, Treasurer', fmt:'PDF' },
+      { id:'sc2', name:'Fundraising KPI scorecard', freq:'Quarterly', to:'Executive team', fmt:'Excel' },
+    ],
+    schedModal:null, shf:{ name:'', freq:'Monthly · 1st', to:'', fmt:'PDF', showError:false, errorMsg:'' },
+    importStep:0, importRows:0,
     notifOpen: false,
     toast: null,
     giftModal: false,
@@ -1178,24 +1476,29 @@ class Component extends DCLogic {
       { id:'INV-4023', vendor:'Office Depot', dept:'Operations', amount:640, status:'pending', po:'PO-211', poAmt:640, receipt:640 },
       { id:'INV-4024', vendor:'AV Rentals LLC', dept:'Events', amount:4900, status:'pending', po:'PO-218', poAmt:4900, receipt:4900 },
     ],
+    selEvent:'ev1', eventModal:null, evf:{ name:'', venue:'', date:'', budget:'', showError:false, errorMsg:'' },
+    events:[
+      { id:'ev1', name:'Annual Gala 2026', venue:'MGM Grand Detroit', date:'April 18 · 6:30 PM', budget:45000, revenue:62400 },
+      { id:'ev2', name:'Scholarship Breakfast', venue:'Detroit Athletic Club', date:'May 22 · 8:00 AM', budget:12000, revenue:18500 },
+    ],
     attendees:[
-      { id:'at1', name:'Marcus & Denise Hall', ticket:'VIP Table', in:false },
-      { id:'at2', name:'GM Corporate (table of 8)', ticket:'Sponsor', in:true },
-      { id:'at3', name:'Angela Rivers', ticket:'General', in:false },
-      { id:'at4', name:'James Whitfield', ticket:'General', in:false },
-      { id:'at5', name:'Dr. Lena Osei', ticket:'VIP Table', in:true },
-      { id:'at6', name:'Robert Chen', ticket:'General', in:false },
-      { id:'at7', name:'Priya & Sam Kaur', ticket:'Patron', in:false },
-      { id:'at8', name:'Foundation Board (8)', ticket:'Comp', in:false },
+      { id:'at1', ev:'ev1', name:'Marcus & Denise Hall', ticket:'VIP Table', in:false },
+      { id:'at2', ev:'ev1', name:'GM Corporate (table of 8)', ticket:'Sponsor', in:true },
+      { id:'at3', ev:'ev1', name:'Angela Rivers', ticket:'General', in:false },
+      { id:'at4', ev:'ev1', name:'James Whitfield', ticket:'General', in:false },
+      { id:'at5', ev:'ev1', name:'Dr. Lena Osei', ticket:'VIP Table', in:true },
+      { id:'at6', ev:'ev2', name:'Robert Chen', ticket:'General', in:false },
+      { id:'at7', ev:'ev2', name:'Priya & Sam Kaur', ticket:'Patron', in:false },
+      { id:'at8', ev:'ev1', name:'Foundation Board (8)', ticket:'Comp', in:false },
     ],
     commSeg:'all', commAi:'idle',
     attendeeModal:null, afm:{ name:'', ticket:'General', showError:false, errorMsg:'' },
     sponsorModal:null, spf:{ name:'', pkg:'', amount:'', paid:false, showError:false, errorMsg:'' },
     campaignModal:null, cpf:{ name:'', segment:'All donors', showError:false, errorMsg:'' },
     sponsors:[
-      { id:'sp1', name:'GM Foundation', pkg:'Presenting', amount:25000, paid:true },
-      { id:'sp2', name:'DTE Energy', pkg:'Gold', amount:10000, paid:true },
-      { id:'sp3', name:'Riverside Foundation', pkg:'Silver', amount:5000, paid:false },
+      { id:'sp1', ev:'ev1', name:'GM Foundation', pkg:'Presenting', amount:25000, paid:true },
+      { id:'sp2', ev:'ev1', name:'DTE Energy', pkg:'Gold', amount:10000, paid:true },
+      { id:'sp3', ev:'ev2', name:'Riverside Foundation', pkg:'Silver', amount:5000, paid:false },
     ],
     campaigns:[
       { id:'cm1', name:'Spring Appeal 2026', segment:'All donors', sent:1240, open:42, click:9, status:'Sent' },
@@ -1364,6 +1667,87 @@ class Component extends DCLogic {
   setAuditFilter(k){ this.setState({ auditFilter:k }); }
   toggleAi(key){ this.setState(s=>({ aiSettings:{...s.aiSettings,[key]:!s.aiSettings[key]} })); this.toast('AI setting updated','✦','#8a3a63'); }
   setAiProvider(v){ this.setState(s=>({ aiSettings:{...s.aiSettings,provider:v} })); }
+  toggleNotifPref(k){ this.setState(s=>({ notifPrefs:{...s.notifPrefs,[k]:!s.notifPrefs[k]} })); }
+  setDigest(v){ this.setState(s=>({ notifPrefs:{...s.notifPrefs,digest:v} })); }
+
+  toggleWf(id){ const w=this.state.wfDefs.find(x=>x.id===id);
+    this.setState(s=>({ wfDefs:s.wfDefs.map(x=>x.id===id?{...x,on:!x.on}:x) }));
+    this.toast(w.name+(w.on?' paused':' activated'), '⚙', w.on?'#a5751c':'#2f7d54'); }
+  openNewWf(){ this.setState({ wfModal:'new', wff:{ name:'', trigger:'', escalate:'3 days', showError:false, errorMsg:'' } }); }
+  openEditWf(id){ const w=this.state.wfDefs.find(x=>x.id===id); if(!w) return;
+    this.setState({ wfModal:id, wff:{ name:w.name, trigger:w.trigger, escalate:w.escalate, showError:false, errorMsg:'' } }); }
+  closeWfModal(){ this.setState({ wfModal:null }); }
+  saveWf(){
+    const f=this.state.wff, mode=this.state.wfModal;
+    if(!f.name.trim()){ this.setState(s=>({wff:{...s.wff,showError:true,errorMsg:'Enter a workflow name.'}})); return; }
+    if(mode==='new'){
+      this.setState(s=>({ wfDefs:[...s.wfDefs,{ id:'w'+Date.now(), name:f.name.trim(), trigger:f.trigger.trim()||'Manual', escalate:f.escalate, on:true, active:0,
+        steps:[{role:'Department head',cond:'all items'}] }], wfModal:null }));
+      this.toast('Workflow created — '+f.name.trim(), '⚙', '#1f6b5c');
+    } else {
+      this.setState(s=>({ wfDefs:s.wfDefs.map(w=>w.id===mode?{...w,name:f.name.trim(),trigger:f.trigger.trim()||'Manual',escalate:f.escalate}:w), wfModal:null }));
+      this.toast('Workflow updated', '✓', '#2f7d54');
+    }
+  }
+  deleteWf(id){ const w=this.state.wfDefs.find(x=>x.id===id); if(!w) return;
+    this.setState({ confirm:{ msg:'Delete the "'+w.name+'" workflow? Running instances finish under the old definition.', label:'Delete workflow',
+      onYes:()=>{ this.setState(s=>({ wfDefs:s.wfDefs.filter(x=>x.id!==id), confirm:null })); this.toast('Workflow deleted','🗑','#b3402f'); } } }); }
+  addWfStep(id){ this.setState(s=>({ wfDefs:s.wfDefs.map(w=>w.id===id?{...w,steps:[...w.steps,{role:'Executive Director',cond:'escalated items'}]}:w) })); this.toast('Approval step added','⚙','#1f6b5c'); }
+  removeWfStep(id, idx){ this.setState(s=>({ wfDefs:s.wfDefs.map(w=>w.id===id?{...w,steps:w.steps.filter((_,i)=>i!==idx)}:w) })); }
+
+  uploadDoc(){
+    this.setState({ uploading:true });
+    clearTimeout(this._up);
+    this._up = setTimeout(()=>{
+      this.setState(s=>({ uploading:false,
+        repo:[{ id:'f'+Date.now(), name:'Q1 impact report.pdf', tag:'Policy', ver:1, size:'1.8 MB', owner:'Executive', updated:'Just now', locked:false }, ...s.repo] }));
+      this.toast('Document uploaded — v1 created', '▤', '#1f6b5c');
+    }, 1200);
+  }
+  newVersion(id){ const d=this.state.repo.find(x=>x.id===id); if(!d) return;
+    this.setState(s=>({ repo:s.repo.map(x=>x.id===id?{...x,ver:x.ver+1,updated:'Just now'}:x) }));
+    this.toast(d.name+' → v'+(d.ver+1), '▤', '#356a8a'); }
+  deleteDoc2(id){ const d=this.state.repo.find(x=>x.id===id); if(!d) return;
+    this.setState({ confirm:{ msg:'Delete '+d.name+'? Soft-deleted with 90-day recovery.', label:'Delete document',
+      onYes:()=>{ this.setState(s=>({ repo:s.repo.filter(x=>x.id!==id), confirm:null })); this.toast('Document deleted','🗑','#b3402f'); } } }); }
+
+  runReport(id, name){
+    this.setState({ reportRunning:id });
+    clearTimeout(this._rep);
+    this._rep = setTimeout(()=>{
+      this.setState(s=>({ reportRunning:null, reportDone:{...s.reportDone,[id]:true} }));
+      this.toast(name+' generated', '📊', '#2f7d54');
+    }, 1300);
+  }
+  openNewSched(){ this.setState({ schedModal:'new', shf:{ name:'', freq:'Monthly · 1st', to:'', fmt:'PDF', showError:false, errorMsg:'' } }); }
+  openEditSched(id){ const x=this.state.schedules.find(v=>v.id===id); if(!x) return;
+    this.setState({ schedModal:id, shf:{ name:x.name, freq:x.freq, to:x.to, fmt:x.fmt, showError:false, errorMsg:'' } }); }
+  closeSchedModal(){ this.setState({ schedModal:null }); }
+  saveSched(){
+    const f=this.state.shf, mode=this.state.schedModal;
+    if(!f.name.trim()){ this.setState(s=>({shf:{...s.shf,showError:true,errorMsg:'Enter a report name.'}})); return; }
+    if(mode==='new'){
+      this.setState(s=>({ schedules:[...s.schedules,{ id:'sc'+Date.now(), name:f.name.trim(), freq:f.freq, to:f.to.trim()||'—', fmt:f.fmt }], schedModal:null }));
+      this.toast('Scheduled report created', '📊', '#1f6b5c');
+    } else {
+      this.setState(s=>({ schedules:s.schedules.map(x=>x.id===mode?{...x,name:f.name.trim(),freq:f.freq,to:f.to.trim()||'—',fmt:f.fmt}:x), schedModal:null }));
+      this.toast('Schedule updated', '✓', '#2f7d54');
+    }
+  }
+  deleteSched(id){ const x=this.state.schedules.find(v=>v.id===id); if(!x) return;
+    this.setState({ confirm:{ msg:'Stop delivering "'+x.name+'"?', label:'Delete schedule',
+      onYes:()=>{ this.setState(s=>({ schedules:s.schedules.filter(v=>v.id!==id), confirm:null })); this.toast('Schedule removed','🗑','#b3402f'); } } }); }
+
+  importNext(){
+    const st = this.state.importStep;
+    if(st===0){ this.setState({ importStep:1, importRows:412 }); return; }
+    if(st===1){ this.setState({ importStep:2 }); return; }
+    if(st===2){
+      this.setState({ importStep:3 });
+      this.toast('386 contacts imported · 26 duplicates merged', '✓', '#2f7d54');
+    }
+  }
+  resetImport(){ this.setState({ importStep:0, importRows:0 }); }
 
   setGrantStage(id, stage){
     if(!id) return;
@@ -1462,6 +1846,33 @@ class Component extends DCLogic {
     this.toast('Campaign scheduled', '✉', '#356a8a');
   }
 
+  openNewEvent(){ this.setState({ eventModal:'new', evf:{ name:'', venue:'', date:'', budget:'', showError:false, errorMsg:'' } }); }
+  openEditEvent(id){ const e=this.state.events.find(x=>x.id===id); if(!e) return;
+    this.setState({ eventModal:id, evf:{ name:e.name, venue:e.venue, date:e.date, budget:String(e.budget), showError:false, errorMsg:'' } }); }
+  closeEventModal(){ this.setState({ eventModal:null }); }
+  saveEvent(){
+    const f=this.state.evf, mode=this.state.eventModal;
+    if(!f.name.trim()){ this.setState(s=>({evf:{...s.evf,showError:true,errorMsg:'Enter an event name.'}})); return; }
+    const budget=Number(f.budget)||0;
+    if(mode==='new'){
+      const id='ev'+Date.now();
+      this.setState(s=>({ events:[...s.events,{ id, name:f.name.trim(), venue:f.venue.trim()||'TBC', date:f.date.trim()||'TBC', budget, revenue:0 }],
+        eventModal:null, selEvent:id }));
+      this.toast('Event created — '+f.name.trim(), '◆', '#1f6b5c');
+    } else {
+      this.setState(s=>({ events:s.events.map(e=>e.id===mode?{...e,name:f.name.trim(),venue:f.venue.trim()||'TBC',date:f.date.trim()||'TBC',budget}:e), eventModal:null }));
+      this.toast('Event updated', '✓', '#2f7d54');
+    }
+  }
+  deleteEvent(id){
+    const e=this.state.events.find(x=>x.id===id); if(!e) return;
+    this.setState({ confirm:{ msg:'Delete '+e.name+'? Its guest list and sponsors are removed too.', label:'Delete event',
+      onYes:()=>{ this.setState(s=>{ const rest=s.events.filter(x=>x.id!==id);
+        return { events:rest, attendees:s.attendees.filter(a=>a.ev!==id), sponsors:s.sponsors.filter(sp=>sp.ev!==id),
+          selEvent: s.selEvent===id ? (rest[0]?rest[0].id:null) : s.selEvent, confirm:null }; });
+        this.toast('Event deleted', '🗑', '#b3402f'); } } });
+  }
+
   openNewAttendee(){ this.setState({ attendeeModal:'new', afm:{ name:'', ticket:'General', showError:false, errorMsg:'' } }); }
   openEditAttendee(id){ const a=this.state.attendees.find(x=>x.id===id); if(!a) return;
     this.setState({ attendeeModal:id, afm:{ name:a.name, ticket:a.ticket, showError:false, errorMsg:'' } }); }
@@ -1470,7 +1881,7 @@ class Component extends DCLogic {
     const f=this.state.afm, mode=this.state.attendeeModal;
     if(!f.name.trim()){ this.setState(s=>({afm:{...s.afm,showError:true,errorMsg:'Enter a guest name.'}})); return; }
     if(mode==='new'){
-      this.setState(s=>({ attendees:[...s.attendees,{ id:'at'+Date.now(), name:f.name.trim(), ticket:f.ticket, in:false }], attendeeModal:null }));
+      this.setState(s=>({ attendees:[...s.attendees,{ id:'at'+Date.now(), ev:s.selEvent, name:f.name.trim(), ticket:f.ticket, in:false }], attendeeModal:null }));
       this.toast('Guest registered — '+f.name.trim(), '◆', '#1f6b5c');
     } else {
       this.setState(s=>({ attendees:s.attendees.map(a=>a.id===mode?{...a,name:f.name.trim(),ticket:f.ticket}:a), attendeeModal:null }));
@@ -1493,7 +1904,7 @@ class Component extends DCLogic {
       this.setState(s=>({spf:{...s.spf,showError:true,errorMsg:'Sponsor name and a valid amount are required.'}})); return; }
     const amount=Number(f.amount);
     if(mode==='new'){
-      this.setState(s=>({ sponsors:[...s.sponsors,{ id:'sp'+Date.now(), name:f.name.trim(), pkg:f.pkg.trim()||'Sponsor', amount, paid:f.paid }], sponsorModal:null }));
+      this.setState(s=>({ sponsors:[...s.sponsors,{ id:'sp'+Date.now(), ev:s.selEvent, name:f.name.trim(), pkg:f.pkg.trim()||'Sponsor', amount, paid:f.paid }], sponsorModal:null }));
       this.toast('Sponsor added — '+f.name.trim(), '🤝', '#1f6b5c');
     } else {
       this.setState(s=>({ sponsors:s.sponsors.map(sp=>sp.id===mode?{...sp,name:f.name.trim(),pkg:f.pkg.trim()||'Sponsor',amount,paid:f.paid}:sp), sponsorModal:null }));
@@ -1659,23 +2070,24 @@ class Component extends DCLogic {
     const stageStyle = { Qualification:['#6b7269','#eeede7'], Cultivation:['#356a8a','#e6eef4'], Solicitation:['#a5751c','#f6edda'], Stewardship:['#1f6b5c','#e7f1ed'], Renewal:['#8a3a63','#f3e9ee'] };
 
     // nav
-    const navDefs = [
-      ['dashboard','▤','Dashboard'],['board','♦','Executive & Board'],['advancement','♥','Advancement'],
-      ['grants','◈','Grants'],['finance','$','Finance'],['communications','✉','Communications'],
-      ['events','◆','Events'],['programs','◉','Programs'],['operations','✓','Operations'],['hr','☺','HR / Admin'],
-    ];
-    const nav = navDefs.map(([id,icon,label])=>{
+    const mkItem = (id,icon,label)=>{
       const active = s.moduleId===id;
-      const badge = id==='dashboard' ? (s.approvals.length||'') : '';
-      return { icon, label, weight:active?700:500, color:active?'#14201c':'#4a524b', bg:active?'#e7f1ed':'transparent',
-        badge, badgeBg:'#1f6b5c', badgeColor:'#fff', onGo:()=>this.go(id) };
-    });
-    const adminDefs = [['audit','▦','Audit log'],['integrations','⇄','Integrations'],['aiadmin','✦','AI settings']];
-    const adminNav = adminDefs.map(([id,icon,label])=>{ const active=s.moduleId===id;
-      const badge = id==='integrations' ? (s.integrations.filter(i=>i.status==='error').length||'') : '';
-      return { icon, label, weight:active?700:500, color:active?'#14201c':'#4a524b', bg:active?'#e7f1ed':'transparent',
-        badge, badgeBg:'#c9503c', badgeColor:'#fff', onGo:()=>this.go(id) };
-    });
+      const alert = id==='dashboard' ? (s.approvals.length||'') : (id==='integrations' ? (s.integrations.filter(i=>i.status==='error').length||'') : '');
+      return { icon, label, weight:active?700:500, color:active?'#14201c':'#4a524b',
+        bg:active?'#e7f1ed':'transparent',
+        alert, alertBg:id==='integrations'?'#c9503c':'#1f6b5c', onGo:()=>this.go(id) };
+    };
+    const navGroups = [
+      { label:'', showLabel:false, items:[mkItem('dashboard','▤','Dashboard')] },
+      { label:'Departmental modules', showLabel:true, items:[
+        mkItem('board','♦','Executive & Board'), mkItem('advancement','♥','Advancement'), mkItem('grants','◈','Grants'),
+        mkItem('finance','$','Finance'), mkItem('communications','✉','Communications'), mkItem('events','◆','Events'),
+        mkItem('programs','◉','Programs'), mkItem('operations','✓','Operations'), mkItem('hr','☺','HR / Admin')] },
+      { label:'Platform', showLabel:true, items:[
+        mkItem('workflows','⚙','Workflows'), mkItem('documents','▤','Documents'), mkItem('calendar','▦','Calendar'),
+        mkItem('reports','📊','Reports'), mkItem('audit','⧉','Audit log'), mkItem('integrations','⇄','Integrations'),
+        mkItem('dataimport','⇪','Data import'), mkItem('aiadmin','✦','AI settings')] },
+    ];
 
     // search
     const q = s.q.trim().toLowerCase();
@@ -1787,21 +2199,27 @@ class Component extends DCLogic {
     }
 
     // Events
-    const checkedIn = s.attendees.filter(a=>a.in).length;
+    const evSel = s.events.find(e=>e.id===s.selEvent) || null;
+    const eventTabs = s.events.map(e=>({ label:e.name, bg:e.id===s.selEvent?'#1f6b5c':'#fff', color:e.id===s.selEvent?'#fff':'#4a524b',
+      border:e.id===s.selEvent?'#1f6b5c':'#e4e3db', onGo:()=>this.setState({selEvent:e.id}) }));
+    const evAttendees = s.attendees.filter(a=>a.ev===s.selEvent);
+    const evSponsors = s.sponsors.filter(sp=>sp.ev===s.selEvent);
+    const checkedIn = evAttendees.filter(a=>a.in).length;
     const ticketColor = { 'VIP Table':['#8a3a63','#f3e9ee'], 'Sponsor':['#a5751c','#f6edda'], 'Patron':['#356a8a','#e6eef4'], 'General':['#4a524b','#eeede7'], 'Comp':['#6b7269','#eeede7'] };
-    const attendees = s.attendees.map(a=>{ const [c,bg]=ticketColor[a.ticket]||['#4a524b','#eeede7'];
+    const attendees = evAttendees.map(a=>{ const [c,bg]=ticketColor[a.ticket]||['#4a524b','#eeede7'];
       return { name:a.name, ticket:a.ticket, tColor:c, tBg:bg, in:a.in, btnLabel:a.in?'Checked in':'Check in', btnBg:a.in?'#e7f1ed':'#1f6b5c', btnColor:a.in?'#1f6b5c':'#fff', onToggle:()=>this.toggleCheckin(a.id), onEdit:()=>this.openEditAttendee(a.id), onDelete:()=>this.deleteAttendee(a.id) };
     });
+    const sponsorSum = evSponsors.reduce((a,b)=>a+b.amount,0);
     const eventStats = [
-      { label:'Registered', value:String(s.attendees.length) },
-      { label:'Checked in', value:checkedIn+' / '+s.attendees.length },
-      { label:'Revenue', value:'$62,400' },
-      { label:'Sponsors', value:'$40K committed' },
+      { label:'Registered', value:String(evAttendees.length) },
+      { label:'Checked in', value:checkedIn+' / '+evAttendees.length },
+      { label:'Revenue', value:this.fmt(evSel?evSel.revenue:0) },
+      { label:'Sponsors', value:this.fmt(sponsorSum)+' committed' },
     ];
-    const sponsors = s.sponsors.map(sp=>({ name:sp.name, pkg:sp.pkg+' · '+this.fmt(sp.amount), paid:sp.paid,
+    const sponsors = evSponsors.map(sp=>({ name:sp.name, pkg:sp.pkg+' · '+this.fmt(sp.amount), paid:sp.paid,
       payLabel:sp.paid?'Paid':'Invoiced', payColor:sp.paid?'#2f7d54':'#a5751c', payBg:sp.paid?'#e7f1ed':'#f6edda',
       onEdit:()=>this.openEditSponsor(sp.id), onDelete:()=>this.deleteSponsor(sp.id) }));
-    const sponsorTotal = this.fmt(s.sponsors.reduce((a,b)=>a+b.amount,0));
+    const sponsorTotal = this.fmt(sponsorSum);
 
     // Communications
     const segOptions = [ ['all','All donors',1240], ['major','Major donors',88], ['foundation','Foundations',24], ['lapsed','Lapsed (LYBUNT)',310] ]
@@ -1904,18 +2322,115 @@ class Component extends DCLogic {
       s.employees.forEach(e=>{ if(e.name.toLowerCase().includes(sq)||e.role.toLowerCase().includes(sq)) searchPage.push({icon:'☺',title:e.name,sub:e.role+' · '+e.dept,kind:'PERSON',onGo:()=>this.go('hr')}); });
     }
 
+    // Workflow builder
+    const wfList = s.wfDefs.map(w=>({
+      name:w.name, trigger:w.trigger, escalate:w.escalate, active:String(w.active),
+      onLabel:w.on?'Active':'Paused', onColor:w.on?'#2f7d54':'#a5751c', onBg:w.on?'#e7f1ed':'#f6edda',
+      knobBg:w.on?'#1f6b5c':'#cfcec5', knobX:w.on?'18px':'2px',
+      steps:w.steps.map((st,i)=>({ n:String(i+1), role:st.role, cond:st.cond, onRemove:()=>this.removeWfStep(w.id,i) })),
+      onToggle:()=>this.toggleWf(w.id), onEdit:()=>this.openEditWf(w.id), onDelete:()=>this.deleteWf(w.id), onAddStep:()=>this.addWfStep(w.id),
+    }));
+
+    // Document repository
+    const repoTags = ['all','Policy','Finance','Grants','Comms','Board'].map(t=>({
+      label:t==='all'?'All documents':t, bg:s.repoTag===t?'#1f6b5c':'#fff', color:s.repoTag===t?'#fff':'#4a524b',
+      border:s.repoTag===t?'#1f6b5c':'#e4e3db', onGo:()=>this.setState({repoTag:t}) }));
+    const repoDocs = s.repo.filter(d=>s.repoTag==='all'||d.tag===s.repoTag).map(d=>({
+      name:d.name, tag:d.tag, ver:'v'+d.ver, size:d.size, owner:d.owner, updated:d.updated,
+      lockIcon:d.locked?'🔒':'', onVersion:()=>this.newVersion(d.id), onDelete:()=>this.deleteDoc2(d.id) }));
+    const repoEmpty = repoDocs.length===0;
+
+    // Calendar
+    const calKind = { grant:['#a5751c','#f6edda'], event:['#8a3a63','#f3e9ee'], board:['#356a8a','#e6eef4'], program:['#2f7d54','#e7f1ed'], finance:['#4a524b','#eeede7'], comms:['#b3402f','#f7e5e1'] };
+    const calTabs = [['all','All'],['grant','Grant deadlines'],['event','Events'],['board','Board'],['program','Programs']].map(([k,label])=>({
+      label, bg:s.calFilter===k?'#1f6b5c':'#fff', color:s.calFilter===k?'#fff':'#4a524b', border:s.calFilter===k?'#1f6b5c':'#e4e3db',
+      onGo:()=>this.setState({calFilter:k}) }));
+    const visibleCal = s.calEvents.filter(e=>s.calFilter==='all'||e.kind===s.calFilter);
+    const calCells = [];
+    for(let i=1;i<=30;i++){
+      const hits = visibleCal.filter(e=>e.day===i);
+      const first = hits[0];
+      const [c,bg] = first ? (calKind[first.kind]||['#4a524b','#eeede7']) : ['',''];
+      calCells.push({ day:String(i), has:!!first, title:first?first.title:'', color:c, bg:bg||'transparent',
+        more: hits.length>1 ? '+'+(hits.length-1) : '' });
+    }
+    const calList = visibleCal.map(e=>{ const [c,bg]=calKind[e.kind]||['#4a524b','#eeede7'];
+      return { day:'Apr '+e.day, title:e.title, kind:e.kind, color:c, bg }; });
+
+    // Reports
+    const reportCatalog = [
+      ['r1','Board financial report','Monthly summary for governance','PDF'],
+      ['r2','KPI scorecard','Department performance against targets','PDF'],
+      ['r3','Impact report','Students, families and community served','PDF'],
+      ['r4','Budget vs. actual','Department spend against budget','Excel'],
+      ['r5','Grant spenddown','Award utilisation and variance','Excel'],
+      ['r6','Revenue by source','Gifts, grants, events and other income','Excel'],
+    ].map(([id,name,desc,fmt])=>({ name, desc, fmt,
+      running:s.reportRunning===id, done:!!s.reportDone[id], idle:s.reportRunning!==id && !s.reportDone[id],
+      onRun:()=>this.runReport(id,name) }));
+    const schedules = s.schedules.map(x=>({ name:x.name, freq:x.freq, to:x.to, fmt:x.fmt,
+      onEdit:()=>this.openEditSched(x.id), onDelete:()=>this.deleteSched(x.id) }));
+
+    // Data import
+    const importSteps = ['Upload file','Map columns','Review duplicates','Complete'].map((label,i)=>({
+      label, n:String(i+1), active:s.importStep===i, done:s.importStep>i,
+      bg:s.importStep>=i?'#1f6b5c':'#f0efe9', color:s.importStep>=i?'#fff':'#9aa39d' }));
+    const importMap = [
+      { src:'first_name + last_name', dest:'Contact · Name', ok:true },
+      { src:'email_address', dest:'Contact · Email', ok:true },
+      { src:'donor_type', dest:'Contact · Type', ok:true },
+      { src:'total_given', dest:'Contact · Lifetime giving', ok:true },
+      { src:'legacy_code', dest:'— not mapped —', ok:false },
+    ].map(m=>({ ...m, mark:m.ok?'✓':'!', markColor:m.ok?'#2f7d54':'#a5751c', markBg:m.ok?'#e7f1ed':'#f6edda' }));
+
     const sc = this.scaffoldData();
 
     return {
+      navGroups,
+      // notification preferences
+      npInapp:s.notifPrefs.inapp, npEmail:s.notifPrefs.email,
+      npInappBg:s.notifPrefs.inapp?'#1f6b5c':'#cfcec5', npInappX:s.notifPrefs.inapp?'18px':'2px',
+      npEmailBg:s.notifPrefs.email?'#1f6b5c':'#cfcec5', npEmailX:s.notifPrefs.email?'18px':'2px',
+      onToggleInapp:()=>this.toggleNotifPref('inapp'), onToggleEmail:()=>this.toggleNotifPref('email'),
+      digestOpts:['daily','weekly','off'].map(d=>({ label:d, bg:s.notifPrefs.digest===d?'#1f6b5c':'#fff',
+        color:s.notifPrefs.digest===d?'#fff':'#4a524b', border:s.notifPrefs.digest===d?'#1f6b5c':'#e4e3db', onGo:()=>this.setDigest(d) })),
+      // workflows
+      isWorkflows:s.moduleId==='workflows', wfList, openNewWf:()=>this.openNewWf(),
+      wfModalOpen:s.wfModal!==null, wfModalTitle:s.wfModal==='new'?'New workflow':'Edit workflow',
+      wff:{ name:s.wff.name, trigger:s.wff.trigger, escalate:s.wff.escalate, showError:s.wff.showError, errorMsg:s.wff.errorMsg,
+        nameErr:s.wff.showError&&!s.wff.name.trim()?'#d99':'#e4e3db' },
+      onWfName:e=>this.setState(st=>({wff:{...st.wff,name:e.target.value}})),
+      onWfTrigger:e=>this.setState(st=>({wff:{...st.wff,trigger:e.target.value}})),
+      onWfEscalate:e=>this.setState(st=>({wff:{...st.wff,escalate:e.target.value}})),
+      saveWf:()=>this.saveWf(), closeWfModal:()=>this.closeWfModal(),
+      // documents
+      isDocuments:s.moduleId==='documents', repoDocs, repoTags, repoEmpty,
+      uploading:s.uploading, notUploading:!s.uploading, onUpload:()=>this.uploadDoc(),
+      // calendar
+      isCalendar:s.moduleId==='calendar', calCells, calTabs, calList, calEmpty:calList.length===0,
+      // reports
+      isReports:s.moduleId==='reports', reportCatalog, schedules, openNewSched:()=>this.openNewSched(),
+      schedModalOpen:s.schedModal!==null, schedModalTitle:s.schedModal==='new'?'New scheduled report':'Edit schedule',
+      shf:{ name:s.shf.name, freq:s.shf.freq, to:s.shf.to, fmt:s.shf.fmt, showError:s.shf.showError, errorMsg:s.shf.errorMsg,
+        nameErr:s.shf.showError&&!s.shf.name.trim()?'#d99':'#e4e3db' },
+      onShName:e=>this.setState(st=>({shf:{...st.shf,name:e.target.value}})),
+      onShFreq:e=>this.setState(st=>({shf:{...st.shf,freq:e.target.value}})),
+      onShTo:e=>this.setState(st=>({shf:{...st.shf,to:e.target.value}})),
+      onShFmt:e=>this.setState(st=>({shf:{...st.shf,fmt:e.target.value}})),
+      saveSched:()=>this.saveSched(), closeSchedModal:()=>this.closeSchedModal(),
+      // data import
+      isImport:s.moduleId==='dataimport', importSteps, importMap, importRows:String(s.importRows),
+      importStep0:s.importStep===0, importStep1:s.importStep===1, importStep2:s.importStep===2, importStep3:s.importStep===3,
+      onImportNext:()=>this.importNext(), onResetImport:()=>this.resetImport(),
       authed:s.authed, showLogin:!s.authed, loggingIn:s.loggingIn, notLoggingIn:!s.loggingIn, signIn:()=>this.signIn(), signOut:()=>this.signOut(),
-      onSearchKey:e=>this.submitSearch(e), adminNav,
+      onSearchKey:e=>this.submitSearch(e),
       isAudit:s.moduleId==='audit', auditRows, auditTabs, auditEmpty:auditRows.length===0,
       isIntegrations:s.moduleId==='integrations', integrations,
       isAiAdmin:s.moduleId==='aiadmin', aiToggles, aiProviders, aiProvider:s.aiSettings.provider,
       isSearch:s.moduleId==='search', searchPage, searchQuery:s.q, searchCount:String(searchPage.length), searchEmpty:searchPage.length===0,
       role:s.role, roleLabel:u.label, userName:u.name, userInitials:u.initials,
       moduleId:s.moduleId, isDashboard:s.moduleId==='dashboard', isAdvancement:s.moduleId==='advancement',
-      isScaffold: !['dashboard','advancement','grants','finance','events','communications','programs','operations','board','hr','audit','integrations','aiadmin','search'].includes(s.moduleId), scaffold:sc,
+      isScaffold: !['dashboard','advancement','grants','finance','events','communications','programs','operations','board','hr','audit','integrations','aiadmin','search','workflows','documents','calendar','reports','dataimport'].includes(s.moduleId), scaffold:sc,
       isPrograms:s.moduleId==='programs', programList, roster, impactStats, present, attRate, attRateW:attRate+'%',
       isOperations:s.moduleId==='operations', filteredTasks, taskTabs, workflows, knowledgeDocs,
       isBoard:s.moduleId==='board', packetSections, packetStep:s.packetStep,
@@ -1935,7 +2450,6 @@ class Component extends DCLogic {
       gcolumns, grant, backToBoard:()=>this.setState({selGrant:null}),
       isFinance:s.moduleId==='finance', financeOverview:s.moduleId==='finance'&&!invRaw, invoiceDetail:!!invRaw,
       finKpis, budgetBars, apQueue, invoice, backToFinance:()=>this.setState({selInvoice:null}),
-      nav,
       q:s.q, onSearch:e=>this.setState({q:e.target.value}), hasSearch:!!q, searchResults, noResults:q&&searchResults.length===0,
       onRole:e=>{ const r=e.target.value; this.setState({role:r, moduleId:'dashboard', selectedId:null}); this.toast('Viewing as '+users[r].label,'👤','#356a8a'); },
       toggleNotif:()=>this.setState(st=>({notifOpen:!st.notifOpen})), notifOpen:s.notifOpen,
@@ -1994,6 +2508,19 @@ class Component extends DCLogic {
       onIReceipt:e=>this.setState(st=>({ifm:{...st.ifm,receipt:e.target.value}})),
       saveInvoice:()=>this.saveInvoice(), closeInvoiceModal:()=>this.closeInvoiceModal(),
       sponsorTotal,
+      // event CRUD
+      eventTabs, hasEvent:!!evSel, noEvent:!evSel,
+      evName: evSel?evSel.name:'', evVenue: evSel?(evSel.venue+' · '+evSel.date):'',
+      onEditEvent:()=>evSel&&this.openEditEvent(evSel.id), onDeleteEvent:()=>evSel&&this.deleteEvent(evSel.id),
+      openNewEvent:()=>this.openNewEvent(),
+      eventModalOpen: s.eventModal!==null, eventModalTitle: s.eventModal==='new'?'New event':'Edit event',
+      evf:{ name:s.evf.name, venue:s.evf.venue, date:s.evf.date, budget:s.evf.budget, showError:s.evf.showError, errorMsg:s.evf.errorMsg,
+        nameErr:s.evf.showError&&!s.evf.name.trim()?'#d99':'#e4e3db' },
+      onEvName:e=>this.setState(st=>({evf:{...st.evf,name:e.target.value}})),
+      onEvVenue:e=>this.setState(st=>({evf:{...st.evf,venue:e.target.value}})),
+      onEvDate:e=>this.setState(st=>({evf:{...st.evf,date:e.target.value}})),
+      onEvBudget:e=>this.setState(st=>({evf:{...st.evf,budget:e.target.value}})),
+      saveEvent:()=>this.saveEvent(), closeEventModal:()=>this.closeEventModal(),
       // attendee CRUD
       openNewAttendee:()=>this.openNewAttendee(),
       attendeeModalOpen: s.attendeeModal!==null, attendeeModalTitle: s.attendeeModal==='new'?'Register guest':'Edit guest',
