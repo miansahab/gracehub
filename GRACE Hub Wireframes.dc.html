@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0}
+  body{background:#efe9dc;background-image:radial-gradient(#e0d9c8 1px,transparent 1px);background-size:26px 26px;font-family:"Kalam",system-ui,sans-serif;color:#2c2a26;-webkit-font-smoothing:antialiased}
+  a{color:#2f6fb0;text-decoration:none}
+  a:hover{color:#1d5793;text-decoration:underline}
+</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:46px 24px 90px;display:flex;flex-direction:column;gap:34px">
+
+  <div id="top" style="display:flex;flex-direction:column;gap:14px">
+    <div style="display:inline-flex;align-items:center;gap:10px">
+      <span style="font:700 12px ui-monospace,monospace;background:#2c2a26;color:#f4f1ea;padding:4px 9px;border-radius:5px;letter-spacing:.06em">WIREFRAME SET</span>
+      <span style="font:400 15px Kalam,cursive;color:#8a8474">low-fidelity · structure &amp; behavior only</span>
+    </div>
+    <h1 style="margin:0;font:700 52px/0.98 Caveat,cursive;color:#232019;letter-spacing:.5px">GRACE&nbsp;Hub — System Wireframes</h1>
+    <p style="margin:0;max-width:760px;font:400 18px/1.5 Kalam,cursive;color:#57534a">Unified nonprofit operations platform for the Detroit Public Schools Community District Foundation. Every plate below sketches one part of the system — the layout on the left, how it works and which requirements it satisfies on the right. Pan and zoom freely; the blue links jump between plates.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;background:#fbf9f3;border:1px solid #ddd6c8;border-radius:12px;padding:18px 20px">
+    <div style="font:700 17px Caveat,cursive;color:#232019;grid-column:1/-1;margin-bottom:-4px">Legend</div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:22px;border:1.5px solid #cfc8ba;background:#fff;border-radius:5px;flex:none"></span><span style="font:400 14px Kalam;color:#57534a">UI panel / card</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:22px;border:1.5px solid #cfc8ba;border-radius:5px;flex:none;background:repeating-linear-gradient(45deg,#e7e0cf,#e7e0cf 5px,#f6f2e8 5px,#f6f2e8 10px)"></span><span style="font:400 14px Kalam;color:#57534a">image / media slot</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px;flex:none">REQ-01</span><span style="font:400 14px Kalam;color:#57534a">mapped requirement ID</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="font:700 15px Kalam;color:#2f6fb0;flex:none">→ Plate</span><span style="font:400 14px Kalam;color:#57534a">user-flow link</span></div>
+  </div>
+
+  <div id="p01" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">01</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">System Map — how the layers fit together</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">Section 2 · Architecture</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:12px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px 14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Presentation layer — responsive web app (mobile-first)</div><div style="display:flex;gap:8px;flex-wrap:wrap;font:12px ui-monospace,monospace;color:#8a8474"><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:5px 9px">Role dashboards</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:5px 9px">Module UIs</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:5px 9px">Global search + notifications</span></div></div>
+        <div style="text-align:center;font:700 16px Caveat;color:#b8b2a6">▼ internal API layer ▼</div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px 14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Application layer — 9 department modules</div><div style="display:flex;gap:6px;flex-wrap:wrap;font:11px ui-monospace,monospace;color:#8a8474"><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Exec/Board</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">CRM</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Grants</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Finance</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Comms</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Events</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Programs</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Ops</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">HR</span></div></div>
+        <div style="text-align:center;font:700 16px Caveat;color:#b8b2a6">▼ every module consumes ▼</div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px 14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Shared platform services</div><div style="display:flex;gap:6px;flex-wrap:wrap;font:11px ui-monospace,monospace;color:#8a8474"><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Auth / RBAC</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Workflow</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Notifications</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Search</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Documents</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">AI layer</span><span style="border:1.5px solid #cfc8ba;border-radius:5px;padding:4px 7px">Audit</span></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px 14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:6px">Data layer</div><div style="font:11px ui-monospace,monospace;color:#8a8474;line-height:1.7">Relational system of record<br>Document / blob storage<br>Search index</div></div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px 14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:6px">Integration layer</div><div style="font:11px ui-monospace,monospace;color:#8a8474;line-height:1.7">Entra ID · M365<br>QuickBooks · Bill.com<br>queued + retryable sync</div></div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Modular, service-oriented. Each module can ship or feature-flag independently, but none rolls its own plumbing — they all call the <b>shared services</b> for auth, workflow, notifications, search, docs and audit.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">All functionality passes through an internal API layer so public APIs (Phase 4) can be added later. The data model carries an org-ID scope from day one for future multi-tenancy.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px">
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ARC-01</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ARC-02</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ARC-03</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ARC-04</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ARC-05</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ARC-06</span>
+        </div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p02">→ App Shell</a><a href="#p03">→ Security</a><a href="#p10">→ Data Model</a><a href="#p20">→ Integrations</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p02" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">02</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">App Shell &amp; Global Navigation</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">The frame every module lives in</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2">
+        <div style="border:1.5px solid #b8b2a6;background:#fff;border-radius:10px;overflow:hidden">
+          <div style="height:44px;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1.5px solid #cfc8ba;background:#f3eee2">
+            <span style="font:700 15px Caveat;color:#232019">◈ GRACE Hub</span>
+            <div style="flex:1;max-width:340px;height:24px;border:1.5px solid #cfc8ba;border-radius:12px;background:#fff;display:flex;align-items:center;padding:0 10px;font:11px ui-monospace,monospace;color:#a9a291">⌕ Search everything…</div>
+            <span style="margin-left:auto;font:12px ui-monospace,monospace;color:#8a8474">🔔 3</span>
+            <span style="width:24px;height:24px;border-radius:50%;border:1.5px solid #cfc8ba;background:#efe9dc"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:150px 1fr;min-height:300px">
+            <div style="border-right:1.5px solid #cfc8ba;background:#f7f3ea;padding:12px 10px;display:flex;flex-direction:column;gap:5px;font:12px ui-monospace,monospace;color:#6f6a5c">
+              <span style="background:#232019;color:#f4f1ea;border-radius:5px;padding:5px 8px">▤ Dashboard</span>
+              <span style="padding:5px 8px">♦ Executive/Board</span>
+              <span style="padding:5px 8px">♥ Advancement</span>
+              <span style="padding:5px 8px">◈ Grants</span>
+              <span style="padding:5px 8px">$ Finance</span>
+              <span style="padding:5px 8px">✉ Communications</span>
+              <span style="padding:5px 8px">◆ Events</span>
+              <span style="padding:5px 8px">◉ Programs</span>
+              <span style="padding:5px 8px">✓ Operations</span>
+              <span style="padding:5px 8px">☺ HR / Admin</span>
+              <span style="margin-top:auto;padding:5px 8px;border-top:1px dashed #cfc8ba;color:#a9a291">⚙ Admin settings</span>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="font:700 16px Caveat;color:#8a7a3a">Role-specific dashboard</div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+                <div style="border:1.5px solid #cfc8ba;border-radius:6px;padding:10px;background:#fff;font:11px ui-monospace;color:#8a8474">KPI</div>
+                <div style="border:1.5px solid #cfc8ba;border-radius:6px;padding:10px;background:#fff;font:11px ui-monospace;color:#8a8474">KPI</div>
+                <div style="border:1.5px solid #cfc8ba;border-radius:6px;padding:10px;background:#fff;font:11px ui-monospace;color:#8a8474">KPI</div>
+                <div style="border:1.5px solid #cfc8ba;border-radius:6px;padding:10px;background:#fff;font:11px ui-monospace;color:#8a8474">KPI</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="border:1.5px solid #cfc8ba;border-radius:6px;padding:12px;background:#fff;height:80px;font:11px ui-monospace;color:#8a8474">Activity feed ⟨PLT-01⟩</div>
+                <div style="border:1.5px solid #cfc8ba;border-radius:6px;padding:12px;background:#fff;height:80px;font:11px ui-monospace;color:#8a8474">Org calendar ⟨PLT-02⟩</div>
+              </div>
+              <div style="border:1.5px solid #cfc8ba;border-radius:6px;padding:12px;background:#fff;font:11px ui-monospace;color:#8a8474">Pending approvals · Task Center summary</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">A persistent top bar (logo, universal search, notification bell, profile) and a left rail listing the 9 modules plus admin. Everything is responsive and mobile-usable for end-user work.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The landing view is a <b>role-specific dashboard</b> — an exec sees org KPIs and approvals; a gift officer sees their portfolio. The activity feed and shared calendar are scoped to the user's permissions.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px">
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ARC-06</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">PLT-01</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">PLT-02</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SRC-01</span>
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">NTF-03</span>
+        </div>
+        <p style="margin:2px 0 0;font:400 13px/1.5 Kalam;color:#8a8474">Note: module plates below show only the content area — assume this shell wraps each one.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p07">→ Search</a><a href="#p05">→ Notifications</a><a href="#p09">→ Activity/Calendar</a><a href="#p11">→ Exec dashboard</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;font:700 26px Caveat;color:#8a8474;margin:2px 0 -8px">◆ &nbsp;Shared Platform Services&nbsp; ◆<div style="font:400 15px Kalam;color:#a9a291">Section 3–4 · every module reuses these</div></div>
+
+  <div id="p03" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">03</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Identity, Access &amp; Security</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">SSO · RBAC · audit log</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center">
+          <div style="font:700 15px Caveat;color:#8a7a3a">Sign in</div>
+          <div style="width:150px;height:44px;border:1.5px solid #cfc8ba;border-radius:6px;background:#f3eee2;display:flex;align-items:center;justify-content:center;font:12px ui-monospace;color:#6f6a5c">▸ Continue with<br>Microsoft Entra ID</div>
+          <div style="font:11px ui-monospace;color:#a9a291">No local passwords · OIDC/SAML</div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+          <div style="font:700 15px Caveat;color:#8a7a3a">Admin · Users &amp; Roles</div>
+          <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:0;font:11px ui-monospace;color:#8a8474;border:1px solid #e3ddce">
+            <div style="padding:6px;background:#f3eee2;border-bottom:1px solid #e3ddce">User</div><div style="padding:6px;background:#f3eee2;border-bottom:1px solid #e3ddce">Role</div><div style="padding:6px;background:#f3eee2;border-bottom:1px solid #e3ddce">Scope</div>
+          </div>
+          <div style="font:11px ui-monospace;color:#a9a291;line-height:1.8">platform roles · dept scopes<br>record-level restrictions</div>
+        </div>
+        <div style="grid-column:1/-1;border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Immutable audit log &nbsp;<span style="font:11px ui-monospace;color:#a9a291">searchable · 7-yr retention</span></div>
+          <div style="display:flex;flex-direction:column;gap:5px;font:11px ui-monospace;color:#8a8474">
+            <div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">actor · timestamp · record · before → after</div>
+            <div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">create · update · delete · export · login · perm-change</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Users authenticate only through Entra ID SSO; accounts provision and deactivate from the directory (deactivated access ends within 15 min). No passwords stored here.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Access is role-based across three levels — platform role, department scope, record-level. Checks run server-side on every call. Admins manage it all in-app; sensitive fields carry visibility flags. Everything is encrypted and written to a tamper-proof audit log.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px">
+          <span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-04</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-05</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-06</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-07</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-08</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-09</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SEC-10</span>
+        </div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p19">→ HR sync</a><a href="#p20">→ Entra integration</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p04" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">04</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Workflow Engine &amp; Task Center</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">approvals · routing · escalation</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:10px">Workflow instance — approval routing</div>
+          <div style="display:flex;align-items:center;gap:8px;font:11px ui-monospace;color:#6f6a5c;flex-wrap:wrap">
+            <span style="border:1.5px solid #7a9a5a;background:#eef4e4;border-radius:6px;padding:8px 10px">✓ Submitted</span><span>→</span>
+            <span style="border:1.5px solid #7a9a5a;background:#eef4e4;border-radius:6px;padding:8px 10px">✓ Dept review</span><span>→</span>
+            <span style="border:1.5px solid #d8b24a;background:#fbf2d6;border-radius:6px;padding:8px 10px">◷ Finance approval</span><span>→</span>
+            <span style="border:1.5px dashed #cfc8ba;border-radius:6px;padding:8px 10px">Exec sign-off</span>
+          </div>
+          <div style="font:11px ui-monospace;color:#a9a291;margin-top:8px">conditional branch by amount · escalates on timeout · shows step, assignee, elapsed time</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+            <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Task Center</div>
+            <div style="display:flex;flex-direction:column;gap:5px;font:11px ui-monospace;color:#8a8474"><div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">☐ Approve invoice #4021 · due today</div><div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">☐ Review grant report · 2d</div><div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">☐ Sign board packet · 5d</div></div>
+          </div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+            <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Admin · Workflow builder</div>
+            <div style="font:11px ui-monospace;color:#a9a291;line-height:1.8">no-code config<br>sequential + parallel<br>if amount &gt; $X → route</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">One configurable engine powers every approval in the platform. Admins define routing (sequential or parallel), conditional branches, and timeout escalations without code.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Each running instance shows its current step, assignee, history and elapsed time, and surfaces in the assignee's <b>Task Center</b> and the exec Pending Approvals view.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">WFL-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">WFL-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">WFL-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">OPS-02</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p14">→ Finance approvals</a><a href="#p11">→ Board packet</a><a href="#p18">→ Operations</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p05" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">05</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Notification Engine &amp; Center</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">in-app + email · digests</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1.3fr 1fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Notification Center</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font:11px ui-monospace;color:#8a8474">
+            <div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px;background:#fbf7ea">● Invoice #4021 needs your approval →</div>
+            <div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px;background:#fbf7ea">● Grant report due in 3 days →</div>
+            <div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">○ @you mentioned on Contact note →</div>
+            <div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">○ Pledge payment received →</div>
+          </div>
+          <div style="font:11px ui-monospace;color:#a9a291;margin-top:8px">read / unread · deep-links to source record</div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Per-user preferences</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font:11px ui-monospace;color:#8a8474"><div>In-app ▣ &nbsp; Email ▣</div><div>Digest: ◉ daily ○ weekly</div><div style="color:#a9a291;line-height:1.7">triggers: workflow · deadlines · assignments · mentions</div></div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Notifications fire from workflow events, deadlines (grants, reports, pledges), assignments and mentions — delivered in-app and by email with per-user preferences and digest options.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The Notification Center aggregates everything with read/unread state and deep links straight to the source record.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">NTF-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">NTF-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">NTF-03</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p04">→ Workflow</a><a href="#p13">→ Grant deadlines</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p06" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">06</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Document &amp; Knowledge Management</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">central repository · versioning</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;overflow:hidden">
+          <div style="display:flex;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid #e3ddce;font:11px ui-monospace;color:#8a8474"><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 10px">⌕ filter</span><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 10px">tag: policy</span><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 10px">dept: all</span><span style="margin-left:auto;border:1px solid #cfc8ba;border-radius:5px;padding:3px 10px">+ Upload</span></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px">
+            <div style="border:1.5px solid #cfc8ba;border-radius:6px;height:90px;background:repeating-linear-gradient(45deg,#e7e0cf,#e7e0cf 5px,#f6f2e8 5px,#f6f2e8 10px);display:flex;align-items:flex-end;padding:6px;font:10px ui-monospace;color:#6f6a5c">SOP v3</div>
+            <div style="border:1.5px solid #cfc8ba;border-radius:6px;height:90px;background:repeating-linear-gradient(45deg,#e7e0cf,#e7e0cf 5px,#f6f2e8 5px,#f6f2e8 10px);display:flex;align-items:flex-end;padding:6px;font:10px ui-monospace;color:#6f6a5c">Grant template</div>
+            <div style="border:1.5px solid #cfc8ba;border-radius:6px;height:90px;background:repeating-linear-gradient(45deg,#e7e0cf,#e7e0cf 5px,#f6f2e8 5px,#f6f2e8 10px);display:flex;align-items:flex-end;padding:6px;font:10px ui-monospace;color:#6f6a5c">Boilerplate</div>
+            <div style="border:1.5px solid #cfc8ba;border-radius:6px;height:90px;background:repeating-linear-gradient(45deg,#e7e0cf,#e7e0cf 5px,#f6f2e8 5px,#f6f2e8 10px);display:flex;align-items:flex-end;padding:6px;font:10px ui-monospace;color:#6f6a5c">Board minutes 🔒</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">A central document store holds policies, SOPs, templates, boilerplate, forms and training content — each tagged, versioned and permissioned. Sensitive libraries (board, HR) are locked to authorized roles.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">M365 (SharePoint/OneDrive) provides viewing/editing; the same library grounds the AI knowledge assistant.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">DOC-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">OPS-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">AIS-04</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p08">→ AI assistant</a><a href="#p18">→ Knowledge Center</a><a href="#p20">→ M365</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p07" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">07</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Universal Search</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">≤ 2s · permission-scoped</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="height:30px;border:1.5px solid #b8b2a6;border-radius:15px;display:flex;align-items:center;padding:0 12px;font:12px ui-monospace;color:#6f6a5c">⌕ "riverside foundation"</div>
+          <div style="display:flex;gap:6px;margin:12px 0;font:11px ui-monospace;color:#8a8474;flex-wrap:wrap"><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 9px;background:#f3eee2">All</span><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 9px">Contacts</span><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 9px">Grants</span><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 9px">Docs</span><span style="border:1px solid #cfc8ba;border-radius:12px;padding:3px 9px">date · owner</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px;font:11px ui-monospace;color:#8a8474"><div style="border:1px solid #e3ddce;border-radius:4px;padding:8px">◈ Grant — Riverside Fdn · Active · $75k →</div><div style="border:1px solid #e3ddce;border-radius:4px;padding:8px">♥ Contact — Riverside Foundation (org) →</div><div style="border:1px solid #e3ddce;border-radius:4px;padding:8px">▤ Doc — Riverside proposal 2024.pdf →</div></div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">One search box in the top bar spans every record type and document, always filtered to what the user is allowed to see, returning typical queries in under two seconds.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Results filter by record type, department, date range and owner, and link straight into the source record.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SRC-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SRC-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">SRC-03</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p08">→ AI search (Phase 3)</a><a href="#p10">→ Data model</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p08" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">08</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">AI Service Layer &amp; Knowledge Assistant</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">drafts only · cited · audited</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Assistant panel</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font:11px ui-monospace;color:#8a8474"><div style="border:1px solid #e3ddce;border-radius:4px;padding:8px;background:#f3eee2">"Draft a report for the Kresge grant"</div><div style="border:1px solid #e3ddce;border-radius:4px;padding:8px">▸ DRAFT — pending review<br><span style="color:#a9a291">Sources: proposal.pdf · impact Q3 [cited]</span></div><div style="display:flex;gap:6px"><span style="border:1px solid #7a9a5a;background:#eef4e4;border-radius:5px;padding:4px 8px;color:#5a7a3a">✓ Accept</span><span style="border:1px solid #cfc8ba;border-radius:5px;padding:4px 8px">✎ Edit</span></div></div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Central AI config</div>
+          <div style="font:11px ui-monospace;color:#a9a291;line-height:1.9">swap model / prompt / provider<br>without touching modules<br>no training on Foundation data<br>every AI action → audit log</div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">All AI runs through one central service layer, so models, prompts and providers can change without touching modules. Foundation data is never used to train third-party models.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Everything AI produces — proposals, reports, emails — is a <b>draft requiring human review</b> before send, is attributable in the audit log, and the knowledge assistant grounds answers in the Foundation library with citations.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">AIS-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">AIS-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">AIS-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">AIS-04</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Powers · Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p13">→ Grant drafting</a><a href="#p15">→ Comms drafting</a><a href="#p06">→ Knowledge library</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p09" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">09</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Activity Feed &amp; Organizational Calendar</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">cross-module · permission-scoped</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1fr 1.2fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Activity feed</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font:11px ui-monospace;color:#8a8474"><div style="border-left:2px solid #cfc8ba;padding:4px 8px">Gift logged · $5k · 2h</div><div style="border-left:2px solid #cfc8ba;padding:4px 8px">Grant moved → Award · 4h</div><div style="border-left:2px solid #cfc8ba;padding:4px 8px">Event check-in opened · 1d</div></div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="display:flex;justify-content:space-between;font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px"><span>Shared calendar</span><span style="font:10px ui-monospace;color:#a9a291">▣ filters</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font:9px ui-monospace;color:#a9a291">
+            <div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px;background:#fbf2d6">grant</div><div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px;background:#eef4e4">board</div><div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px"></div>
+            <div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px;background:#e4eef4">event</div><div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px"></div><div style="border:1px solid #e3ddce;height:24px"></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">A cross-module activity feed shows recent record activity scoped to the user's permissions, so people see only what they can access.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The shared calendar aggregates events, grant deadlines, board meetings and program dates in one place, with department filters.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">PLT-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">PLT-02</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p02">→ Dashboard</a><a href="#p20">→ M365 calendar</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p10" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">10</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Core Data Model — shared system of record</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">Section 5 · entities &amp; relationships</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="border:2px solid #8a7a3a;background:#fbf7ea;border-radius:8px;padding:10px 16px;font:700 14px Caveat;color:#8a7a3a">CONTACT — person / org · households · relationships</div>
+          <div style="font:700 15px Caveat;color:#b8b2a6">links to ▾</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;font:11px ui-monospace;color:#8a8474">
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Gift / Pledge</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Campaign</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Prospect Plan</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Communication</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Funder / Grant</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Event</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Program</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Financial Rec.</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Task / Project</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Board Record</div>
+            <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:8px;text-align:center">Knowledge Asset</div>
+            <div style="border:1.5px dashed #cfc8ba;border-radius:6px;padding:8px;text-align:center;color:#a9a291">Impact metrics</div>
+          </div>
+          <div style="font:11px ui-monospace;color:#a9a291;margin-top:4px">every entity: created/modified · owner · department · permission scope · org-ID</div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">One shared system of record underpins every module. <b>Contact</b> is the hub — gifts, campaigns, prospect plans, comms, grants, events and programs all hang off it, so a donor's full history is one join away.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Every entity carries owner, department, permission scope and audit metadata. Impact metrics roll up from Grants/Programs/Events to org dashboards. Migration imports and de-dupes contacts.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">DAT-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">DAT-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">DAT-03</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p12">→ Donor CRM</a><a href="#p13">→ Grants</a><a href="#p16">→ Events</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;font:700 26px Caveat;color:#8a8474;margin:2px 0 -8px">◆ &nbsp;Department Modules&nbsp; ◆<div style="font:400 15px Kalam;color:#a9a291">Section 6 · each renders inside the App Shell (Plate <a href="#p02">02</a>)</div></div>
+
+  <div id="p11" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">11</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">♦ Executive Leadership &amp; Board</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">dashboards · reports · board packet</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 8px;font:10px ui-monospace;color:#8a8474;text-align:center">Fundraising</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 8px;font:10px ui-monospace;color:#8a8474;text-align:center">Grants</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 8px;font:10px ui-monospace;color:#8a8474;text-align:center">Finance</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 8px;font:10px ui-monospace;color:#8a8474;text-align:center">Events</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 8px;font:10px ui-monospace;color:#8a8474;text-align:center">Impact</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 8px;font:10px ui-monospace;color:#8a8474;text-align:center">Approvals</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:14px">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px;height:120px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:6px">Department scorecards</div><div style="font:11px ui-monospace;color:#a9a291">KPI trend charts · drill-down to source</div></div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:6px">Board packet wizard</div><div style="font:11px ui-monospace;color:#a9a291;line-height:1.8">1 Agenda → 2 Reports<br>→ 3 Docs → 4 Build PDF</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474">Reporting suite → PDF / Excel · scheduled</div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474">Board directory · terms · committees 🔒</div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The exec dashboard pulls org KPIs, department scorecards and financial/grant/fundraising/event/impact snapshots into one view with drill-down to every source record, plus pending approvals and the calendar.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">A reporting suite exports board/KPI/impact/budget reports to PDF &amp; Excel on a schedule. The board packet wizard assembles agendas, reports and docs into a paginated PDF stored in a permissioned board library.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EXE-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EXE-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EXE-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EXE-04</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Pulls from</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p12">→ CRM</a><a href="#p13">→ Grants</a><a href="#p14">→ Finance</a><a href="#p04">→ Approvals</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p12" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">12</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">♥ Advancement — Donor CRM</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">contacts · giving · moves · analytics</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;overflow:hidden">
+          <div style="display:flex;gap:12px;padding:14px;border-bottom:1px solid #e3ddce;align-items:center"><span style="width:44px;height:44px;border-radius:50%;border:1.5px solid #cfc8ba;background:#efe9dc;flex:none"></span><div><div style="font:700 15px Caveat;color:#8a7a3a">Contact record — Jane Donor</div><div style="font:11px ui-monospace;color:#a9a291">household · relationships · lifetime $148k</div></div><span style="margin-left:auto;font:11px ui-monospace;color:#8a8474;border:1px solid #cfc8ba;border-radius:12px;padding:4px 10px">Major donor 🔒</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:0;font:11px ui-monospace;color:#8a8474">
+            <div style="padding:12px;border-right:1px solid #e3ddce"><div style="font:600 12px Caveat;color:#8a7a3a;font-size:14px;margin-bottom:6px">Giving</div>gifts · pledges<br>recurring schedule<br>receipts / acks</div>
+            <div style="padding:12px;border-right:1px solid #e3ddce"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:6px">Prospect plan</div>stage: cultivation<br>proposal tracking<br>next action</div>
+            <div style="padding:12px"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:6px">Timeline</div>email · call · meeting<br>notes · follow-up tasks</div>
+          </div>
+          <div style="padding:12px;border-top:1px solid #e3ddce;font:11px ui-monospace;color:#a9a291">Analytics: retention · LYBUNT/SYBUNT · avg gift · pipeline value — filter by year / campaign / segment</div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The donor record is the CRM's center: contact types with household grouping and relationship mapping, full notes/attachments, and a running timeline of every touch.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Giving records all gift types with receipts; recurring gifts and pledges auto-generate expected-payment reminders. Moves-management tracks stages and proposals; analytics compute retention, LYBUNT/SYBUNT, average gift and pipeline value.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ADV-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ADV-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ADV-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ADV-04</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">ADV-05</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p10">→ Data model</a><a href="#p15">→ Campaigns</a><a href="#p16">→ Event sponsors</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p13" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">13</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">◈ Grants</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">pipeline → proposal → award → active</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:10px">Pipeline board</div>
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;font:10px ui-monospace;color:#8a8474;text-align:center">
+            <div style="border:1px solid #e3ddce;border-radius:5px;padding:8px 4px;background:#f3eee2">Lead</div><div style="border:1px solid #e3ddce;border-radius:5px;padding:8px 4px">Opportunity</div><div style="border:1px solid #e3ddce;border-radius:5px;padding:8px 4px">Proposal</div><div style="border:1px solid #e3ddce;border-radius:5px;padding:8px 4px;background:#eef4e4">Award</div><div style="border:1px solid #e3ddce;border-radius:5px;padding:8px 4px">Active</div><div style="border:1px solid #e3ddce;border-radius:5px;padding:8px 4px">Closed</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Active grant</div>milestones · reporting deadlines<br>spenddown vs budget ⚠ variance</div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">✦ AI draft</div>proposal / report / letter<br>grounded in library → review</div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474">Impact tracking: students · families · scholars · community served + outcomes</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Grants move along a lifecycle pipeline against a funder database with deadline tracking and reminders. Proposal development supports collaborators, tasks, budgets and reuse from a boilerplate library.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Awards capture amounts, restrictions, schedules and executed agreements; active management tracks milestones, reporting deadlines and spenddown with variance alerts. AI drafts documents; impact metrics are recorded per grant.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">GRT-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">GRT-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">GRT-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">GRT-04</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">GRT-05</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">GRT-06</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p08">→ AI layer</a><a href="#p14">→ Grant spenddown</a><a href="#p05">→ Deadline alerts</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p14" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">14</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">$ Finance</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">QuickBooks · Bill.com · 3-way match</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font:10px ui-monospace;color:#8a8474;text-align:center">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 6px">Cash on hand</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 6px">Revenue / Exp</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 6px">AP / AR</div><div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:10px 6px">Budget vs actual</div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:10px">Purchasing — invoice</div>
+          <div style="display:flex;align-items:center;gap:6px;font:10px ui-monospace;color:#6f6a5c;flex-wrap:wrap"><span style="border:1px solid #cfc8ba;border-radius:5px;padding:6px 8px">Upload + OCR</span>→<span style="border:1px solid #cfc8ba;border-radius:5px;padding:6px 8px">Approval routing</span>→<span style="border:1px solid #d8b24a;background:#fbf2d6;border-radius:5px;padding:6px 8px">3-way match: PO·receipt·invoice</span>→<span style="border:1px solid #cfc8ba;border-radius:5px;padding:6px 8px">Pay via Bill.com</span></div>
+          <div style="font:10px ui-monospace;color:#a9a291;margin-top:8px">exception queue · attribute to dept / grant / event</div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474">Reports: P&amp;L · balance sheet · budget · dept &amp; grant expenses · revenue by source</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The financial dashboard mirrors QuickBooks — cash, revenue, expenses, AP/AR, net assets and budget-vs-actual. Purchasing runs POs and invoices (OCR capture) through configurable approvals and a three-way match before paying vendors via Bill.com.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Every expense is attributable to a department, grant or event, powering restricted-fund and grant-spenddown reporting.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">FIN-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">FIN-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">FIN-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">FIN-04</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p04">→ Approval workflow</a><a href="#p20">→ QuickBooks + Bill.com</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p15" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">15</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">✉ Communications</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">campaigns · segments · engagement</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Campaign builder</div><div style="border:1px solid #e3ddce;border-radius:5px;height:70px;background:repeating-linear-gradient(45deg,#e7e0cf,#e7e0cf 5px,#f6f2e8 5px,#f6f2e8 10px)"></div><div style="font:10px ui-monospace;color:#a9a291;margin-top:6px">template · audience from CRM query</div></div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Segments &amp; lists</div><div style="font:11px ui-monospace;color:#8a8474;line-height:1.9">◉ Major donors<br>◉ Lapsed (LYBUNT)<br>◉ Event RSVPs</div></div>
+        <div style="grid-column:1/-1;border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474">Engagement: open % · click % → written back to contact timeline &amp; campaign attribution · ✦ AI drafts emails/newsletters</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Email campaigns use templates and audiences segmented from live CRM queries. Engagement (opens, clicks) writes back to contact timelines and campaign attribution.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Event invitations link campaigns to Events and track responses; AI can draft emails, newsletters and suggest campaigns (as reviewable drafts).</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">COM-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">COM-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">COM-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">COM-04</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p12">→ CRM segments</a><a href="#p16">→ Event invites</a><a href="#p08">→ AI drafts</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p16" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">16</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">◆ Events</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">planning · registration · sponsors</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px;font:11px ui-monospace;color:#8a8474"><div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:6px">Event — Annual Gala</div>venue · dates · budget · staff assignments</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Registration</div>tickets · forms<br>📱 mobile check-in<br>attendance capture</div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Sponsors &amp; vendors</div>packages · commitments<br>payments · contracts</div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474">Reporting: revenue · expenses · attendance · ROI · YoY comparison</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Planning manages venues, dates, budgets and staff. Registration handles ticket sales, forms, mobile check-in and attendance.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Sponsor management tracks packages, commitments and payments; vendors track contracts and payments. Reporting shows revenue, expenses, attendance, ROI and year-over-year comparison.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EVT-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EVT-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EVT-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">EVT-04</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p12">→ Sponsor contacts</a><a href="#p14">→ Event financials</a><a href="#p15">→ Invitations</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p17" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">17</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">◉ Programs</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">cohorts · participants · impact</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Programs / cohorts</div>initiatives · community events<br>volunteers</div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Participant tracking</div>registration · attendance<br>outcomes · impact metrics</div>
+        <div style="grid-column:1/-1;border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474">Reporting: program KPIs · attendance · community impact → rolls up to exec dashboards</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Programs manages cohorts, initiatives, community events and volunteers. Participant tracking covers registration, attendance, outcomes and impact metrics.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Program KPIs, attendance and community impact roll up into the executive dashboards, tying frontline delivery to org-level reporting.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">PRG-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">PRG-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">PRG-03</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p11">→ Impact dashboard</a><a href="#p13">→ Grant outcomes</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p18" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">18</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">✓ Operations</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">tasks · automation · knowledge</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Task Center</div>tasks · projects<br>assignments · due dates</div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Workflow automation</div>approval routing<br>escalations · smart alerts</div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Knowledge Center</div>policies · SOPs · forms<br>tags · versioning 🔒</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Operations is the connective tissue: a Task Center aggregates tasks, projects, assignments and due dates with notifications; workflow automation reuses the shared engine for routing, status and escalations.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The Knowledge Center houses policies, SOPs, templates, HR docs and forms with tagging, versioning and permissions.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">OPS-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">OPS-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">OPS-03</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p04">→ Workflow engine</a><a href="#p06">→ Documents</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p19" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#3a3320;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#3a3320;padding:3px 9px;border-radius:5px">19</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">☺ HR / Administration</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#c8bf9a">directory · learning center</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Employee directory</div>syncs from Entra ID<br>roles · permissions · training 🔒</div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:12px;font:11px ui-monospace;color:#8a8474"><div style="font:600 14px Caveat;color:#8a7a3a;margin-bottom:4px">Learning Center</div>training videos · help articles<br>FAQs · docs · role-filtered search</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The employee directory syncs from Entra ID and tracks roles, permissions and training records — no duplicate identity management.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">The Learning Center hosts training videos, help articles, FAQs and platform documentation, all searchable and filtered by role.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">HRA-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">HRA-02</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Flows to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p03">→ Identity/RBAC</a><a href="#p20">→ Entra sync</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;font:700 26px Caveat;color:#8a8474;margin:2px 0 -8px">◆ &nbsp;Integrations &amp; Delivery&nbsp; ◆<div style="font:400 15px Kalam;color:#a9a291">Section 7 &amp; 10</div></div>
+
+  <div id="p20" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">20</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Integration Layer &amp; Sync Log</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">queued · retryable · single source of truth</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font:10px ui-monospace;color:#8a8474;text-align:center">
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:12px 6px"><div style="font:600 13px Caveat;color:#8a7a3a">Entra ID</div>SSO · provisioning<br>≤15min deactivate</div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:12px 6px"><div style="font:600 13px Caveat;color:#8a7a3a">Microsoft 365</div>calendar · email<br>SharePoint/OneDrive</div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:12px 6px"><div style="font:600 13px Caveat;color:#8a7a3a">QuickBooks</div>GL · budgets in<br>invoices/coding out</div>
+          <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:6px;padding:12px 6px"><div style="font:600 13px Caveat;color:#8a7a3a">Bill.com</div>vendors · bills<br>approval/pay status</div>
+        </div>
+        <div style="border:1.5px solid #cfc8ba;background:#fff;border-radius:8px;padding:14px">
+          <div style="font:700 15px Caveat;color:#8a7a3a;margin-bottom:8px">Admin · Sync log &amp; error queue</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font:10px ui-monospace;color:#8a8474"><div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px;background:#eef4e4">✓ QuickBooks · 12:00 · 340 records</div><div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px;background:#f9e4e0">✕ Bill.com · retry 2/3 · alerting</div><div style="border:1px solid #e3ddce;border-radius:4px;padding:6px 8px">reconciliation report · credentials in secrets manager</div></div>
+        </div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Four connectors keep GRACE Hub in step with the org's existing systems. All sync is queued and retryable with an admin-visible log, error queue and alerting on repeated failures.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Each data domain has one designated source of truth (QuickBooks = ledger, GRACE Hub = donors/grants); Bill.com approval state reconciles with the workflow engine to avoid dual approvals. Credentials live in a secrets manager.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">Maps to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">INT-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">INT-02</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">INT-03</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Feeds</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#p03">→ Identity</a><a href="#p14">→ Finance</a><a href="#p09">→ Calendar</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p21" style="scroll-margin-top:20px;background:#fff;border:1px solid #ddd6c8;border-radius:14px;box-shadow:0 2px 0 rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);overflow:hidden">
+    <div style="display:flex;align-items:baseline;gap:12px;padding:16px 22px;background:#232019;color:#f4f1ea">
+      <span style="font:700 14px ui-monospace,monospace;background:#f4f1ea;color:#232019;padding:3px 9px;border-radius:5px">21</span>
+      <span style="font:700 24px Caveat,cursive;letter-spacing:.5px">Delivery Phases &amp; MVP</span>
+      <span style="margin-left:auto;font:400 14px Kalam;color:#b9b09a">Section 10 · roadmap</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px">
+      <div style="padding:24px;background:#faf8f2;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="font:700 13px ui-monospace;background:#eef4e4;border:1px solid #b8cfa0;color:#5a7a3a;padding:4px 8px;border-radius:5px;white-space:nowrap;flex:none">P1 · 12–16w</span><div style="font:11px ui-monospace;color:#8a8474"><b style="font:600 14px Caveat;color:#8a7a3a">Core Infrastructure</b> — Entra SSO &amp; M365, user/role mgmt, central dashboard, global search, docs, grants + donor CRM (core), QuickBooks &amp; Bill.com, comms (core), workflow engine, basic reporting, audit logs</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="font:700 13px ui-monospace;background:#e4eef4;border:1px solid #a0bccf;color:#3a637a;padding:4px 8px;border-radius:5px;white-space:nowrap;flex:none">P2 · 8–12w</span><div style="font:11px ui-monospace;color:#8a8474"><b style="font:600 14px Caveat;color:#8a7a3a">Operational Modules</b> — events, board packet wizard, programs, advanced finance &amp; grants, moves management, collaboration, AI-assisted content, mobile optimization, Knowledge Center</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="font:700 13px ui-monospace;background:#f4eee4;border:1px solid #cfbfa0;color:#7a663a;padding:4px 8px;border-radius:5px;white-space:nowrap;flex:none">P3 · 8–10w</span><div style="font:11px ui-monospace;color:#8a8474"><b style="font:600 14px Caveat;color:#8a7a3a">Intelligence &amp; Automation</b> — AI assistant, AI search, predictive dashboards, automated reporting, workflow intelligence, exec insights, advanced analytics, benchmarking</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="font:700 13px ui-monospace;background:#f0ece6;border:1px dashed #cfc8ba;color:#a9a291;padding:4px 8px;border-radius:5px;white-space:nowrap;flex:none">P4 · future</span><div style="font:11px ui-monospace;color:#a9a291"><b style="font:600 14px Caveat;color:#a9a291">Enterprise Expansion</b> — white-label, multi-org tenancy, subscriptions, partner portals, public APIs, module marketplace (out of scope now)</div></div>
+        <div style="border:1.5px solid #8a7a3a;background:#fbf7ea;border-radius:8px;padding:12px;font:11px ui-monospace;color:#7a663a;margin-top:4px"><b style="font:600 14px Caveat">MVP</b> — infra + security · central dashboard + exec reporting · donor CRM + grants · finance integrations + approvals · docs + search · comms with workflow</div>
+      </div>
+      <div style="padding:20px 22px;border-left:1px dashed #ddd6c8;display:flex;flex-direction:column;gap:14px">
+        <div style="font:700 19px Caveat;color:#232019">How it works</div>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Build proceeds in four phases. Phase 1 stands up the shared platform and the revenue-critical modules; later phases layer on operational depth, then intelligence. Phase 4 is future architecture the build must not preclude.</p>
+        <p style="margin:0;font:400 14.5px/1.55 Kalam;color:#57534a">Every requirement ID in this set maps to a test case in the traceability matrix, and each phase is accepted only when all "must" requirements pass with a completed security review.</p>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:4px">References</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">QAT-01</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">QAT-03</span><span style="font:600 11px ui-monospace,monospace;background:#fdf3d3;border:1px solid #e7d391;color:#7a6620;padding:3px 7px;border-radius:4px">RPT-04</span></div>
+        <div style="font:700 15px Caveat;color:#8a8474;margin-top:2px">Back to</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;font:700 14px Kalam"><a href="#top">↑ Top</a><a href="#p01">→ System map</a></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
